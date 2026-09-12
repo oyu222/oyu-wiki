@@ -1910,10 +1910,13 @@ body.character-page {
 
 @media (max-width: 600px) {
 
-    .character-detail {
-        margin: 10px auto;
-        padding: 0 6px;
-    }
+   .character-detail {
+    width: calc(100% + 28px);
+    max-width: none;
+    margin: 10px 0 10px -14px;
+    padding: 0;
+    box-sizing: border-box;
+}
 
     .enemy-header {
         grid-template-columns: 65px 1fr;
@@ -1965,16 +1968,7 @@ body.character-page {
         min-width: 0;
     }
 
-    .stat-row {
-        grid-template-columns:
-            40px
-            23px
-            40px
-            23px
-            48px
-            23px;
-        min-height: 30px;
-    }
+   
 
     .stat-name {
         padding: 0 4px;
