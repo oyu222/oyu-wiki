@@ -1961,16 +1961,18 @@ body.character-page {
         width: 85px;
         height: 85px;
     }
+    .enemy-stats {
+        min-width: 0;
+    }
 
     .stat-row {
         grid-template-columns:
-            55px
-            38px
-            55px
-            38px
-            68px
-            45px;
-
+            40px
+            23px
+            40px
+            23px
+            48px
+            23px;
         min-height: 30px;
     }
 
