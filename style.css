@@ -57,7 +57,8 @@ main {
 }
 
 .hero h2 {
-    font-size: 36px;
+    font-size: 24px;
+    white-space: nowrap;
 }
 
 .menu {
@@ -782,6 +783,10 @@ body.character-page {
         width: 120px;
         height: 120px;
     }
+}
+
+.hero {
+    padding: 20px 10px 12px;
 }
 
 
