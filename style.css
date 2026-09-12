@@ -1792,3 +1792,103 @@ body.character-page {
 .stage-enemy-link {
     white-space: nowrap;
 }
+
+
+/* =========================================
+   キャラクター検索
+   スマホ用コンパクト調整
+   ※ PC版の見た目には影響しません
+========================================= */
+
+@media (max-width: 600px) {
+
+    /* 属性選択エリア */
+    .attribute-box {
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    .attribute-box h3 {
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .attribute-list {
+        gap: 6px;
+    }
+
+    .attribute-button {
+        gap: 4px;
+        padding: 4px 7px;
+        border-width: 2px;
+        border-radius: 6px;
+        font-size: 12px;
+    }
+
+    .attribute-button img {
+        width: 28px;
+        height: 28px;
+        border-radius: 5px;
+    }
+
+    /* 検索方式 */
+    .search-mode-box {
+        gap: 6px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .search-mode-button {
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 13px;
+    }
+
+    /* キャラクター一覧 */
+    .character-results {
+        margin-top: 18px;
+    }
+
+    #characterList {
+        gap: 5px;
+    }
+
+    .character-row {
+        grid-template-columns:
+            48px
+            48px
+            1fr;
+        gap: 8px;
+        min-height: 58px;
+        padding: 6px 8px;
+        border-width: 1px;
+        border-radius: 6px;
+    }
+
+    .character-id {
+        font-size: 12px;
+    }
+
+    .character-image {
+        width: 44px;
+        height: 44px;
+    }
+
+    .character-image img {
+        width: 44px;
+        height: 44px;
+    }
+
+    .character-name {
+        font-size: 14px;
+    }
+
+    .character-attributes {
+        gap: 3px;
+        font-size: 11px;
+    }
+
+    .no-result {
+        padding: 25px;
+    }
+}
