@@ -1903,5 +1903,124 @@ body.character-page {
         white-space: nowrap;
         margin: 0 0 8px;
     }
-    
+    /* =========================================
+   キャラクター詳細ページ
+   スマホ用コンパクト調整
+========================================= */
+
+@media (max-width: 600px) {
+
+    .character-detail {
+        margin: 10px auto;
+        padding: 0 6px;
+    }
+
+    .enemy-header {
+        grid-template-columns: 65px 1fr;
+        min-height: 42px;
+        font-size: 16px;
+    }
+
+    .enemy-header > div {
+        padding: 0 8px;
+    }
+
+    .enemy-main {
+        grid-template-columns: 65px 95px 1fr;
+        min-height: 140px;
+    }
+
+    .enemy-attribute {
+        padding: 6px;
+        gap: 4px;
+    }
+
+    .enemy-attribute img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .attribute-item {
+        gap: 3px;
+    }
+
+    .attribute-item img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .attribute-item span {
+        font-size: 11px;
+    }
+
+    .enemy-picture {
+        padding: 6px;
+    }
+
+    .enemy-picture img {
+        width: 85px;
+        height: 85px;
+    }
+
+    .stat-row {
+        grid-template-columns:
+            55px
+            38px
+            55px
+            38px
+            68px
+            45px;
+
+        min-height: 30px;
+    }
+
+    .stat-name {
+        padding: 0 4px;
+        font-size: 10px;
+    }
+
+    .stat-value {
+        padding: 0 4px;
+        font-size: 10px;
+    }
+
+    .enemy-multiplier {
+        grid-template-columns: 90px 1fr;
+        min-height: 50px;
+    }
+
+    .multiplier-title {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .multiplier-control {
+        padding: 8px;
+    }
+
+    .multiplier-control input {
+        width: 70px;
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .enemy-section {
+        grid-template-columns: 90px 1fr;
+        min-height: 45px;
+    }
+
+    .section-title {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .section-content {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .description {
+        line-height: 1.5;
+    }
+}
 }
