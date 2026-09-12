@@ -57,8 +57,7 @@ main {
 }
 
 .hero h2 {
-    font-size: 24px;
-    white-space: nowrap;
+    font-size: 36px;
 }
 
 .menu {
@@ -783,10 +782,6 @@ body.character-page {
         width: 120px;
         height: 120px;
     }
-}
-
-.hero {
-    padding: 20px 10px 12px;
 }
 
 
@@ -1896,4 +1891,17 @@ body.character-page {
     .no-result {
         padding: 25px;
     }
+
+        /* キャラクター図鑑タイトル */
+    .hero {
+        padding: 15px 10px 8px;
+    }
+
+    .hero h2 {
+        font-size: 22px;
+        line-height: 1.2;
+        white-space: nowrap;
+        margin: 0 0 8px;
+    }
+    
 }
