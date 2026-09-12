@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ステージ制作 - お湯Wiki</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>♨️ お湯Wiki</h1>
+</header>
+
+<main class="stage-editor">
+
+    <div class="stage-editor-toolbar">
+
+        <button type="button">
+            ← 戻る
+        </button>
+
+        <h2>ステージ制作</h2>
+
+        <button
+            id="save"
+            type="button"
+            class="stage-save-button"
+        >
+            保存
+        </button>
+
+    </div>
+
+    <div class="stage-editor-window">
+
+        <!-- =================================
+             ① 章
+        ================================== -->
+
+        <section class="stage-column chapter-column">
+
+            <div class="stage-column-title">
+                ①
+            </div>
+
+            <div class="stage-column-buttons">
+
+                <button id="addChapter">
+                    追加
+                </button>
+
+                <button id="deleteChapter">
+                    削除
+                </button>
+
+            </div>
+
+            <div
+                id="chapterList"
+                class="stage-list"
+            ></div>
+
+            <div class="stage-bottom-buttons">
+
+                <button>
+                    マップをコピー
+                </button>
+
+                <button>
+                    マップ貼り付け
+                </button>
+
+                <button>
+                    マップを削除
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             ② ステージ
+        ================================== -->
+
+        <section class="stage-column stage-list-column">
+
+            <div class="stage-column-title">
+                ②
+            </div>
+
+            <div class="stage-column-buttons">
+
+                <button id="addStage">
+                    追加
+                </button>
+
+                <button id="deleteStage">
+                    削除
+                </button>
+
+            </div>
+
+            <div
+                id="stageList"
+                class="stage-list"
+            ></div>
+
+            <div class="stage-bottom-buttons">
+
+                <button>
+                    ステージをコピー
+                </button>
+
+                <button>
+                    ステージ貼り付け
+                </button>
+
+                <button>
+                    ステージを削除
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             ③ キャラクター
+        ================================== -->
+
+        <section class="stage-column character-column">
+
+            <div class="stage-column-title">
+                ③
+            </div>
+
+            <input
+                id="characterSearch"
+                class="stage-character-search"
+                type="text"
+                placeholder="Search enemy..."
+            >
+
+            <div
+                id="characterList"
+                class="stage-character-list"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================
+             ④＋⑤ メイン
+        ================================== -->
+
+        <section class="stage-main">
+
+            <!-- =================================
+                 ステージ情報
+            ================================== -->
+
+            <div class="stage-data-area">
+
+                <div class="stage-data-row">
+
+                    <div class="stage-cell stage-name-cell">
+
+                        <label>
+                            ステージ
+                        </label>
+
+                        <input
+                            id="stageName"
+                            type="text"
+                        >
+
+                    </div>
+
+                    <div class="stage-cell">
+
+                        <label>
+                            1層
+                        </label>
+
+                        <input
+                            type="text"
+                            value="100%"
+                        >
+
+                    </div>
+
+                    <div class="stage-cell">
+
+                        <label>
+                            2層
+                        </label>
+
+                        <input
+                            type="text"
+                            value="/"
+                        >
+
+                    </div>
+
+                    <div class="stage-cell">
+
+                        <label>
+                            3層
+                        </label>
+
+                        <input
+                            type="text"
+                            value="/"
+                        >
+
+                    </div>
+
+                    <div class="stage-cell">
+
+                        <label>
+                            4層
+                        </label>
+
+                        <input
+                            type="text"
+                            value="/"
+                        >
+
+                    </div>
+
+                </div>
+
+
+               <div class="stage-data-grid">
+
+    <div class="data-label">
+        城体力
+    </div>
+
+    <input
+        id="castleHealth"
+        type="number"
+        value="10000"
+        min="1"
+    >
+
+    <div class="data-label">
+        出撃最大数
+    </div>
+
+    <input
+        id="maxEnemies"
+        type="number"
+        value="8"
+    >
+
+    <div class="data-label">
+        基準コスト
+    </div>
+
+    <input
+        id="baseCost"
+        type="number"
+        value="2"
+    >
+
+    <div class="data-label">
+        ステージ幅
+    </div>
+
+    <input
+        id="stageWidth"
+        type="number"
+        value="3000"
+    >
+
+    <div class="data-label">
+        制限
+    </div>
+
+    <input
+        id="spawnRestriction"
+        type="text"
+        value=""
+    >
+
+    <div class="data-label">
+        レア度
+    </div>
+
+    <div class="stage-rarity-box">
+        <button>基本</button>
+        <button>EX</button>
+        <button>レア</button>
+        <button>激レア</button>
+        <button>超激レア</button>
+        <button>伝説レア</button>
+    </div>
+
+    <div class="data-label">
+        最小再登場
+    </div>
+
+    <input
+        id="minimumRespawn"
+        type="text"
+        value="1f"
+    >
+
+    <div class="data-label">
+        最大コスト
+    </div>
+
+    <input
+        type="number"
+        value="0"
+    >
+
+    <div class="data-label">
+        スロット制限
+    </div>
+
+    <input
+        type="text"
+    >
+
+    <div class="data-label">
+        最小コスト
+    </div>
+
+    <input
+        type="number"
+        value="0"
+    >
+
+    
+    <div class="data-label">統率力</div>
+<input id="leadership" type="number" value="0">
+
+    <input
+        type="text"
+    >
+
+    <div class="data-label">
+        min score
+    </div>
+
+    <input
+        type="number"
+        value="0"
+    >
+
+</div>
+
+            <!-- =================================
+                 新ライン
+            ================================== -->
+
+            <div class="stage-line-toolbar">
+                <button id="addLine" disabled>
+    新ライン
+</button>
+
+<button id="copyLine" type="button">
+    ラインをコピー
+</button>
+
+<button id="deleteLine" type="button">
+    パートの削除
+</button>
+            </div>
+
+
+            <!-- =================================
+                 ⑤ 出現ライン表
+            ================================== -->
+
+            <div class="stage-spawn-table-wrapper">
+
+                <table class="stage-spawn-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ボス</th>
+
+                            <th>敵キャラ</th>
+
+                            <th>強化倍率</th>
+
+                            <th>出現数</th>
+
+                            <th>城連動</th>
+
+                            <th>初登場</th>
+
+                            <th>再登場</th>
+
+                            <th>層</th>
+
+                            <th>Kill Count</th>
+
+                            <th>+Score</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="spawnList"></tbody>
+
+                </table>
+
+            </div>
+
+            <div
+                id="selectedCharacter"
+                class="stage-selected-character"
+            >
+                キャラクターを選択してください
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+<script src="stage_editor.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自作ステージ - お湯Wiki</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="stage-info-page">
+
+<header>
+    <h1>♨️ お湯Wiki</h1>
+
+    <a href="index.html" class="back-button">
+        ← トップへ戻る
+    </a>
+</header>
+
+<main class="stage-info-list">
+
+    <div class="stage-info-title">
+        自作ステージ
+    </div>
+
+    <div class="stage-info-divider"></div>
+
+    <div id="chapterList"></div>
+
+</main>
+
+<script>
+
+const KEY = "oyuWikiStages";
+
+const chapterList =
+    document.getElementById("chapterList");
+
+function esc(value) {
+
+    return String(value).replace(
+        /[&<>'"]/g,
+        c => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "'": "&#39;",
+            '"': "&quot;"
+        }[c])
+    );
+
+}
+
+function loadChapters() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(KEY) || "[]"
+            );
+
+        return Array.isArray(data)
+            ? data
+            : [];
+
+    } catch {
+
+        return [];
+
+    }
+
+}
+
+function renderChapters() {
+
+    const chapters = loadChapters();
+
+    if (!chapters.length) {
+
+        chapterList.innerHTML = `
+            <div class="stage-info-empty">
+                まだステージがありません。
+            </div>
+        `;
+
+        return;
+    }
+
+    chapterList.innerHTML =
+        chapters.map((chapter, index) => `
+
+            <a
+                class="stage-info-chapter"
+                href="stage.html?chapter=${encodeURIComponent(chapter.id)}"
+            >
+
+                <span class="stage-info-chapter-number">
+                    ${index + 1}
+                </span>
+
+                <span class="stage-info-chapter-name">
+                    ${esc(chapter.name)}
+                </span>
+
+            </a>
+
+        `).join("");
+
+}
+
+renderChapters();
+
+</script>
+
+</body>
+</html>

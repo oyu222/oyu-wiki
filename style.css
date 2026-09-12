@@ -1,0 +1,1794 @@
+/* =========================
+   全体
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #f5f5f5;
+    color: #222;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 40px;
+
+    background: white;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    margin: 0;
+}
+
+button {
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background: #222;
+    color: white;
+}
+
+main {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+
+/* =========================
+   トップページ
+========================= */
+
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero h2 {
+    font-size: 36px;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.menu-card {
+    display: block;
+
+    padding: 30px;
+
+    text-decoration: none;
+    color: inherit;
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    transition: 0.2s;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+}
+
+.menu-card span {
+    font-size: 40px;
+}
+
+.menu-card h3 {
+    font-size: 24px;
+}
+
+
+/* =========================
+   戻るボタン
+========================= */
+
+.back-button {
+    text-decoration: none;
+    color: inherit;
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    background: #eeeeee;
+}
+
+
+/* =========================
+   キャラクター図鑑
+========================= */
+
+.zukan {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+
+/* =========================
+   名前検索
+========================= */
+
+.search-box {
+    margin: 30px auto;
+    max-width: 700px;
+}
+
+.search-box input {
+    width: 100%;
+
+    padding: 15px;
+
+    font-size: 16px;
+
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+
+/* =========================
+   属性
+========================= */
+
+.attribute-box {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.attribute-box h3 {
+    margin-top: 0;
+}
+
+.attribute-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+/* 属性ボタン */
+
+.attribute-button {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 12px;
+
+    background: #f5f5f5;
+    color: #333;
+
+    border: 3px solid transparent;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.attribute-button img {
+    width: 42px;
+    height: 42px;
+
+    object-fit: contain;
+
+    border-radius: 7px;
+}
+
+.attribute-button:hover {
+    background: #e9e9e9;
+}
+
+
+/* 選択中
+   → 背景は変えず、青い枠だけ表示 */
+
+.attribute-button.selected {
+    background: #f5f5f5;
+    color: #333;
+
+    border: 3px solid #3498db;
+}
+
+
+/* =========================
+   検索方式
+========================= */
+
+.search-mode-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    flex-wrap: wrap;
+}
+
+.search-mode-title {
+    font-weight: bold;
+}
+
+.search-mode-button {
+    border: 1px solid #ccc;
+
+    background: white;
+    color: #333;
+
+    padding: 8px 16px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.search-mode-button:hover {
+    background: #eee;
+}
+
+.search-mode-button.selected {
+    background: #333;
+    color: white;
+}
+
+
+/* =========================
+   キャラクター一覧
+========================= */
+
+.character-results {
+    margin-top: 30px;
+}
+
+.character-results h3 {
+    margin-bottom: 10px;
+}
+
+#characterList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+/* キャラクター1行 */
+
+.character-row {
+    display: grid;
+
+    grid-template-columns:
+        100px
+        80px
+        1fr
+        250px;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-height: 80px;
+
+    padding: 10px 15px;
+
+    background: white;
+
+    border: 2px solid #ddd;
+    border-radius: 8px;
+
+    text-decoration: none;
+    color: inherit;
+}
+
+.character-row:hover {
+    background: white;
+    border: 2px solid #3498db;
+}
+
+
+/* No. */
+
+.character-id {
+    color: #888;
+}
+
+
+/* キャラクター画像 */
+
+.character-image {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.character-image img {
+    width: 65px;
+    height: 65px;
+
+    object-fit: contain;
+}
+
+
+/* キャラクター名 */
+
+.character-name {
+    font-weight: bold;
+}
+
+
+/* 属性 */
+
+.character-attributes {
+    display: flex;
+
+    gap: 5px;
+}
+
+
+/* 検索結果なし */
+
+.no-result {
+    text-align: center;
+
+    padding: 40px;
+
+    color: #888;
+}
+
+
+/* =========================
+   ページネーション
+========================= */
+
+.pagination {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 25px;
+    margin-bottom: 30px;
+
+    flex-wrap: wrap;
+}
+
+.pagination button {
+    min-width: 45px;
+    height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    background: white;
+    color: #333;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background: #eee;
+}
+
+.pagination button.current {
+    background: #333;
+    color: white;
+}
+
+.pagination button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.pagination-dots {
+    padding: 0 5px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   敵キャラクター詳細
+========================= */
+
+.character-detail {
+    max-width: 1200px;
+
+    margin: 30px auto;
+
+    padding: 0 20px;
+}
+
+.enemy-table {
+    width: 100%;
+
+    border: 1px solid #ddd;
+
+    background: white;
+}
+
+
+/* =========================
+   詳細ページ ヘッダー
+========================= */
+
+.enemy-header {
+    display: grid;
+
+    grid-template-columns: 150px 1fr;
+
+    min-height: 65px;
+
+    border-bottom: 1px solid #ddd;
+
+    align-items: center;
+
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.enemy-header > div {
+    padding: 0 20px;
+}
+
+
+/* =========================
+   詳細ページ メイン
+========================= */
+
+.enemy-main {
+    display: grid;
+
+    grid-template-columns:
+        150px
+        220px
+        1fr;
+
+    min-height: 245px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+/* =========================
+   属性
+========================= */
+
+.enemy-attribute {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 20px;
+
+    border-right: 1px solid #ddd;
+}
+
+.enemy-attribute img {
+    width: 70px;
+    height: 70px;
+
+    object-fit: contain;
+}
+
+.attribute-item {
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    gap: 6px;
+
+    width: 100%;
+}
+
+.attribute-item img {
+    width: 30px;
+    height: 30px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+}
+
+.attribute-item span {
+    font-size: 16px;
+}
+
+.enemy-attribute a {
+    color: inherit;
+}
+
+
+/* =========================
+   敵画像
+========================= */
+
+.enemy-picture {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    border-right: 1px solid #ddd;
+}
+
+.enemy-picture img {
+    width: 180px;
+    height: 180px;
+
+    object-fit: contain;
+}
+
+
+/* =========================
+   ステータス
+========================= */
+
+.enemy-stats {
+    width: 100%;
+}
+
+.stat-row {
+    display: grid;
+
+    grid-template-columns:
+        90px
+        120px
+        90px
+        120px
+        120px
+        120px;
+
+    min-height: 60px;
+
+    border-bottom: 1px solid #ddd;
+
+    white-space: nowrap;
+}
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-name {
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 10px;
+
+    background: #f5f5f5;
+
+    border-right: 1px solid #ddd;
+
+    font-weight: bold;
+}
+
+.stat-value {
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 10px;
+
+    color: #168dcc;
+
+    border-right: 1px solid #ddd;
+
+    white-space: nowrap;
+
+    min-width: 0;
+}
+
+
+/* =========================
+   倍率
+========================= */
+
+.enemy-multiplier {
+    display: grid;
+
+    grid-template-columns: 150px 1fr;
+
+    min-height: 80px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.multiplier-title {
+    display: flex;
+
+    align-items: center;
+
+    padding: 20px;
+
+    background: #f5f5f5;
+
+    border-right: 1px solid #ddd;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.multiplier-control {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 20px;
+}
+
+.multiplier-control input {
+    width: 100px;
+
+    padding: 8px 10px;
+
+    font-size: 18px;
+
+    border: 1px solid #aaa;
+
+    border-radius: 5px;
+}
+
+
+/* =========================
+   特性・解説
+========================= */
+
+.enemy-section {
+    display: grid;
+
+    grid-template-columns: 150px 1fr;
+
+    min-height: 65px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.section-title {
+    display: flex;
+
+    align-items: center;
+
+    padding: 20px;
+
+    background: #f5f5f5;
+
+    border-right: 1px solid #ddd;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.section-content {
+    padding: 20px;
+
+    font-size: 18px;
+}
+
+.description {
+    line-height: 1.8;
+}
+
+
+/* =========================
+   キャラクターページ
+========================= */
+
+body.character-page {
+    background: #fff;
+}
+
+
+/* =========================
+   スマホ対応
+========================= */
+
+@media (max-width: 800px) {
+
+    .menu {
+        grid-template-columns: 1fr;
+    }
+
+    .enemy-header {
+        grid-template-columns: 100px 1fr;
+    }
+
+    .enemy-main {
+        grid-template-columns:
+            100px
+            150px
+            1fr;
+    }
+
+   @media (max-width: 800px) {
+
+    .menu {
+        grid-template-columns: 1fr;
+    }
+
+    .enemy-header {
+        grid-template-columns: 100px 1fr;
+    }
+
+    .enemy-main {
+        grid-template-columns:
+            100px
+            150px
+            1fr;
+    }
+
+    .stat-row {
+        grid-template-columns:
+            70px
+            120px
+            70px
+            120px
+            90px
+            120px;
+    }
+
+    .enemy-picture img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+    .enemy-picture img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+
+/* =========================
+   キャラクター一覧
+   スマホ対応
+========================= */
+
+@media (max-width: 600px) {
+
+    .character-row {
+        grid-template-columns:
+            65px
+            65px
+            1fr;
+
+        gap: 10px;
+    }
+
+    .character-id {
+        font-size: 13px;
+    }
+
+    .character-image {
+        width: 55px;
+        height: 55px;
+    }
+
+    .character-image img {
+        width: 55px;
+        height: 55px;
+    }
+
+    .character-attributes {
+        grid-column: 3;
+
+        font-size: 12px;
+    }
+}
+/* =========================================
+   ステージ制作
+========================================= */
+
+.stage-editor {
+    width: 100%;
+    max-width: none;
+    padding: 10px;
+}
+
+.stage-editor-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 42px;
+    margin-bottom: 5px;
+}
+
+.stage-editor-toolbar h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.stage-editor-window {
+    display: grid;
+    grid-template-columns: 195px 195px 205px minmax(700px, 1fr);
+    width: 100%;
+    height: calc(100vh - 100px);
+    min-height: 650px;
+    border: 1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+}
+
+
+/* 左3列 */
+
+.stage-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-right: 1px solid #aaa;
+    background: #fff;
+}
+
+.stage-column-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    padding: 3px;
+}
+
+.stage-column-buttons button,
+.stage-bottom-buttons button,
+.stage-line-toolbar button,
+.stage-option-buttons button {
+    padding: 5px 8px;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    background: #f7f7f7;
+    color: #222;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.stage-column-buttons button:hover,
+.stage-bottom-buttons button:hover,
+.stage-line-toolbar button:hover,
+.stage-option-buttons button:hover {
+    background: #e8e8e8;
+}
+
+
+/* 章・ステージ */
+
+.stage-list {
+    flex: 1;
+    overflow-y: auto;
+    border-top: 1px solid #aaa;
+}
+
+.stage-side-item {
+    display: block;
+    width: 100%;
+    min-height: 24px;
+    padding: 3px 6px;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    background: #fff;
+    color: #222;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.stage-side-item:hover {
+    background: #eee;
+}
+
+.stage-side-item.selected {
+    background: #0758d9;
+    color: #fff;
+    font-weight: bold;
+}
+
+.stage-bottom-buttons {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #aaa;
+}
+
+.stage-bottom-buttons button {
+    min-height: 31px;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+
+/* キャラクター */
+
+.character-column {
+    overflow: hidden;
+}
+
+.stage-character-search {
+    width: calc(100% - 8px);
+    height: 29px;
+    margin: 4px;
+    padding: 4px 7px;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    font-size: 13px;
+}
+
+.stage-character-list {
+    flex: 1;
+    overflow-y: auto;
+    border-top: 1px solid #aaa;
+}
+
+.stage-character-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    gap: 5px;
+    padding: 2px 5px;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    background: #fff;
+    color: #222;
+    text-align: left;
+    cursor: pointer;
+}
+
+.stage-character-item:hover {
+    background: #eee;
+}
+
+.stage-character-item.selected {
+    background: #0758d9;
+    color: #fff;
+}
+
+.stage-character-item img {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.stage-character-item span {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.stage-character-item strong {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 13px;
+}
+
+.stage-character-item small {
+    font-size: 10px;
+    opacity: .7;
+}
+
+
+/* 右側 */
+
+.stage-main {
+    min-width: 0;
+    overflow: auto;
+    background: #fff;
+}
+
+
+/* ステージ情報 */
+
+.stage-data-area {
+    border-bottom: 1px solid #aaa;
+}
+
+.stage-data-row {
+    display: grid;
+    grid-template-columns: minmax(180px, 2fr) repeat(4, minmax(80px, 1fr));
+    border-bottom: 1px solid #aaa;
+}
+
+.stage-cell {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #aaa;
+}
+
+.stage-cell label {
+    padding: 4px 6px;
+    background: #eee;
+    border-bottom: 1px solid #ccc;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.stage-cell input {
+    width: 100%;
+    min-height: 30px;
+    padding: 3px 5px;
+    border: 0;
+    font-size: 13px;
+}
+
+.stage-data-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr 120px 1fr 120px 1fr;
+    border-bottom: 1px solid #aaa;
+}
+
+.data-label {
+    display: flex;
+    align-items: center;
+    padding: 4px 7px;
+    background: #eee;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.stage-data-grid input {
+    width: 100%;
+    min-width: 0;
+    padding: 4px 6px;
+    border: 0;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.stage-rarity-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 3px;
+    border-bottom: 1px solid #ccc;
+}
+
+.stage-rarity-box button {
+    padding: 3px 7px;
+    border: 1px solid #aaa;
+    background: #f5f5f5;
+    font-size: 11px;
+}
+
+.stage-option-buttons {
+    display: flex;
+    gap: 2px;
+    padding: 4px;
+    border-bottom: 1px solid #aaa;
+}
+
+.stage-option-buttons button {
+    min-width: 80px;
+}
+
+
+/* 新ライン */
+
+.stage-line-toolbar {
+    display: flex;
+    gap: 3px;
+    padding: 4px;
+    border-bottom: 1px solid #aaa;
+}
+
+.stage-line-toolbar button {
+    min-width: 120px;
+}
+
+
+/* 出現ライン表 */
+
+.stage-spawn-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.stage-spawn-table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 12px;
+}
+
+.stage-spawn-table th:nth-child(1),
+.stage-spawn-table td:nth-child(1) {
+    width: 50px;
+}
+
+.stage-spawn-table th:nth-child(2),
+.stage-spawn-table td:nth-child(2) {
+    width: 130px;
+}
+
+.stage-spawn-table th:nth-child(3),
+.stage-spawn-table td:nth-child(3),
+.stage-spawn-table th:nth-child(4),
+.stage-spawn-table td:nth-child(4),
+.stage-spawn-table th:nth-child(5),
+.stage-spawn-table td:nth-child(5) {
+    width: 80px;
+}
+
+.stage-spawn-table th:nth-child(n+6),
+.stage-spawn-table td:nth-child(n+6) {
+    width: 75px;
+}
+
+.stage-spawn-table th {
+    height: 25px;
+    padding: 3px;
+    background: #eee;
+    border: 1px solid #aaa;
+    white-space: nowrap;
+}
+
+.stage-spawn-table td {
+    height: 34px;
+    padding: 2px;
+    border: 1px solid #aaa;
+    background: #fff;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.stage-spawn-table tr.selected td {
+    background: #0758d9;
+    color: #fff;
+}
+
+.stage-spawn-table input {
+    width: 100%;
+    height: 28px;
+    box-sizing: border-box;
+    border: 0;
+    padding: 2px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.stage-line-character {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    text-align: left;
+}
+
+.stage-line-character img {
+    width: 30px !important;
+    height: 30px !important;
+    max-width: 30px;
+    max-height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.stage-line-character span {
+    min-width: 0;
+}
+
+.stage-line-character strong {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+
+.stage-line-character small {
+    display: block;
+    color: #888;
+    font-size: 9px;
+}
+
+
+/* 選択中キャラクター
+   画像は表示しない */
+
+
+/* Wave */
+
+.stage-wave-tab.active {
+    background: #0758d9;
+    color: #fff;
+}
+
+
+/* その他 */
+
+
+.stage-empty-line {
+    padding: 30px;
+    color: #999;
+    text-align: center;
+}
+
+.stage-save-button {
+    margin-left: auto;
+}
+
+
+/* 画面が狭い場合 */
+
+@media (max-width: 1200px) {
+
+    .stage-editor-window {
+        grid-template-columns:
+            160px 180px 250px minmax(500px, 1fr);
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .stage-editor-window {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 0;
+    }
+
+    .stage-list,
+    .stage-character-list {
+        max-height: 300px;
+    }
+
+    .stage-data-grid {
+        grid-template-columns:
+            120px 1fr;
+    }
+
+}
+.stage-unit-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.stage-unit-input input {
+    width: 60px;
+}
+
+.stage-unit-input span {
+    font-size: 11px;
+}
+
+.stage-character-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.stage-character-link:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   自作ステージ情報
+========================================= */
+
+.stage-info-page,
+.stage-view-page {
+    background: #fff;
+    color: #222;
+}
+
+
+/* =========================================
+   章一覧
+========================================= */
+
+.stage-info-header {
+    padding: 14px 20px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.stage-info-header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+
+.stage-info-list {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+
+.stage-info-title {
+    padding: 18px 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+.stage-info-divider {
+    height: 1px;
+    background: #ddd;
+}
+
+
+.stage-info-chapter {
+    display: grid;
+    grid-template-columns: 105px 1fr;
+
+    min-height: 58px;
+
+    border-bottom: 1px solid #ddd;
+
+    text-decoration: none;
+    color: #2478c9;
+}
+
+
+.stage-info-chapter-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #222;
+
+    border-right: 1px solid #ddd;
+
+    font-size: 18px;
+}
+
+
+.stage-info-chapter-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+}
+
+
+.stage-info-chapter:hover {
+    background: #f5f5f5;
+}
+
+
+.stage-info-empty {
+    padding: 30px;
+    text-align: center;
+    color: #777;
+}
+
+
+/* =========================================
+   ステージ詳細ヘッダー
+========================================= */
+
+.stage-view-header {
+    position: relative;
+
+    padding: 12px 20px;
+
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.stage-view-header h1 {
+    margin: 0;
+
+    text-align: center;
+
+    font-size: 22px;
+}
+
+
+.stage-back-button {
+    position: absolute;
+
+    left: 15px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #2478c9;
+
+    text-decoration: none;
+}
+
+
+.stage-view-main {
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding: 12px;
+}
+
+
+/* =========================================
+   ステージ選択
+========================================= */
+
+.stage-selector {
+    position: relative;
+
+    margin-bottom: 14px;
+}
+
+
+.stage-selector-button {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 11px 14px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    background: #fff;
+
+    color: #222;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+
+.stage-selector-button:hover {
+    background: #f5f5f5;
+}
+
+
+.stage-selector-arrow {
+    font-size: 12px;
+}
+
+
+.stage-selector-menu {
+    display: none;
+
+    position: absolute;
+
+    left: 0;
+    top: calc(100% + 2px);
+
+    z-index: 20;
+
+    width: 330px;
+
+    max-height: 420px;
+
+    overflow-y: auto;
+
+    border: 1px solid #ccc;
+
+    background: #fff;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+}
+
+
+.stage-selector-menu.open {
+    display: block;
+}
+
+
+.stage-selector-chapter-name {
+    padding: 9px 12px;
+
+    border-bottom: 1px solid #ddd;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+.stage-selector-item {
+    display: block;
+
+    padding: 9px 12px;
+
+    color: #222;
+
+    text-decoration: none;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+.stage-selector-item:hover,
+.stage-selector-item.selected {
+    background: #f0f6ff;
+}
+
+
+.stage-selector-item.selected {
+    color: #2478c9;
+}
+
+
+/* =========================================
+   ステージ情報
+========================================= */
+
+.stage-view-section {
+    margin-bottom: 16px;
+
+    border: 1px solid #ccc;
+
+    background: #fff;
+}
+
+
+.stage-view-section h2 {
+    margin: 0;
+
+    padding: 10px 12px;
+
+    background: #f2f2f2;
+
+    border-bottom: 1px solid #ccc;
+
+    font-size: 18px;
+}
+
+
+.stage-info-table {
+    width: 100%;
+}
+
+
+.stage-info-row {
+    display: grid;
+
+    grid-template-columns: 145px 1fr 145px 1fr;
+
+    min-height: 42px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+.stage-info-row:last-child {
+    border-bottom: 0;
+}
+
+
+.stage-info-label {
+    display: flex;
+
+    align-items: center;
+
+    padding: 7px;
+
+    background: #f5f5f5;
+
+    border-right: 1px solid #ddd;
+}
+
+
+.stage-info-value {
+    display: flex;
+
+    align-items: center;
+
+    padding: 7px 10px;
+
+    background: #fff;
+}
+
+
+/* =========================================
+   敵出現表
+========================================= */
+
+.stage-enemy-table-wrapper {
+    overflow-x: auto;
+}
+
+
+.stage-enemy-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+
+    font-size: 13px;
+
+    background: #fff;
+}
+
+
+.stage-enemy-table th,
+.stage-enemy-table td {
+    padding: 7px 5px;
+
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+.stage-enemy-table th {
+    background: #f2f2f2;
+
+    color: #222;
+}
+
+
+.stage-enemy-table th:last-child,
+.stage-enemy-table td:last-child {
+    border-right: 0;
+}
+
+
+.stage-enemy-character {
+    min-width: 150px;
+}
+
+
+.stage-enemy-link {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #2478c9;
+
+    text-decoration: none;
+
+    text-align: left;
+}
+
+
+.stage-enemy-link:hover {
+    text-decoration: underline;
+}
+
+
+.stage-enemy-link img {
+    width: 42px;
+    height: 42px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+}
+
+
+.stage-boss-cell {
+    font-weight: bold;
+}
+
+
+.stage-enemy-empty {
+    padding: 25px !important;
+
+    color: #777;
+}
+
+
+/* =========================================
+   スマホ
+========================================= */
+
+@media (max-width: 600px) {
+
+    .stage-info-chapter {
+        grid-template-columns: 105px 1fr;
+    }
+
+
+    .stage-info-chapter-name {
+        font-size: 16px;
+    }
+
+
+    .stage-view-header h1 {
+        font-size: 19px;
+    }
+
+
+    .stage-back-button {
+        font-size: 13px;
+    }
+
+
+    .stage-view-main {
+        padding: 8px;
+    }
+
+
+    .stage-info-row {
+        grid-template-columns: 105px 1fr;
+    }
+
+
+    .stage-info-row .stage-info-label:nth-of-type(2),
+    .stage-info-row .stage-info-label:nth-of-type(2) + .stage-info-value {
+        border-top: 1px solid #ddd;
+    }
+
+
+    .stage-selector-menu {
+        width: 100%;
+    }
+
+
+    .stage-enemy-table {
+        min-width: 700px;
+    }
+
+}
+
+.stage-enemy-table {
+    table-layout: auto;
+}
+
+.stage-enemy-character {
+    width: 220px;
+    min-width: 220px;
+}
+
+.stage-enemy-link {
+    white-space: nowrap;
+}

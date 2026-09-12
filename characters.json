@@ -1,0 +1,21 @@
+[
+    {
+        "id": 1,
+        "number": "1",
+        "name": "わんこ",
+        "type": "official",
+        "image": "enemy_images/enemy_1.jpg",
+        "attributes": ["none"],
+        "hp": 90,
+        "attack": 8,
+        "kb": 3,
+        "attackFrequency": 1.57,
+        "speed": 5,
+        "attackInterval": 0.27,
+        "range": 110,
+        "attackType": "単体",
+        "money": 15,
+        "traits": [],
+        "description": "にゃんこを勝手にライバル視するシバ犬。にゃんこの誕生日には忘れずプレゼントを用意するマメな一面もある。実は受験生で毎年大学受験に挑戦している"
+    }
+]

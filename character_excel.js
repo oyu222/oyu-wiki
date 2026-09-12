@@ -1,0 +1,714 @@
+// ==============================
+// お湯Wiki
+// キャラクター詳細：Excel直接読み込み版
+// ==============================
+
+
+// URLからIDを取得
+// 例：character.html?id=1
+const params = new URLSearchParams(window.location.search);
+const id = Number(params.get("id"));
+const urlMultiplier = Number(params.get("multiplier")) || 100;
+
+const detail = document.getElementById("characterDetail");
+
+
+// ==============================
+// 属性データ
+// ==============================
+
+const attributeIcons = {
+
+    none: {
+        name: "無属性",
+        image: "images/white.png"
+    },
+
+    red: {
+        name: "赤い敵",
+        image: "images/red.png"
+    },
+
+    floating: {
+        name: "浮いてる敵",
+        image: "images/floating.png"
+    },
+
+    black: {
+        name: "黒い敵",
+        image: "images/black.png"
+    },
+
+    metal: {
+        name: "メタル",
+        image: "images/metal.png"
+    },
+
+    angel: {
+        name: "天使",
+        image: "images/angel.png"
+    },
+
+    alien: {
+        name: "エイリアン",
+        image: "images/alien.png"
+    },
+
+    zombie: {
+        name: "ゾンビ",
+        image: "images/zombie.png"
+    },
+
+    ancient: {
+        name: "古代種",
+        image: "images/ancient.png"
+    },
+
+    devil: {
+        name: "悪魔",
+        image: "images/devil.png"
+    },
+
+    witch: {
+        name: "魔女",
+        image: "images/witch.png"
+    },
+
+    apostle: {
+        name: "使徒",
+        image: "images/apostle.png"
+    },
+
+    starAlien: {
+        name: "スターエイリアン",
+        image: "images/star.png"
+    },
+
+    superLife: {
+        name: "超生命体",
+        image: "images/superlife.png"
+    },
+
+    beast: {
+        name: "超獣",
+        image: "images/beast.png"
+    },
+
+    sage: {
+        name: "超賢者",
+        image: "images/sage.png"
+    },
+
+    villain: {
+        name: "怪人",
+        image: "images/villain.png"
+    },
+
+    custom: {
+        name: "お湯キャラ",
+        image: "images/custom.png"
+    }
+
+};
+
+
+// ==============================
+// 「赤,黒」のようなExcelの
+// 複数データを配列に変換
+// ==============================
+
+function splitValues(value) {
+
+    if (
+        value === undefined ||
+        value === null ||
+        String(value).trim() === ""
+    ) {
+        return [];
+    }
+
+    return String(value)
+        .replace(/、/g, ",")
+        .split(",")
+        .map(value => value.trim())
+        .filter(value => value !== "");
+
+}
+
+
+// ==============================
+// Excelを読み込む
+// ==============================
+
+fetch("characters.xlsx")
+
+    .then(response => {
+
+        if (!response.ok) {
+            throw new Error(
+                "characters.xlsxを読み込めませんでした"
+            );
+        }
+
+        return response.arrayBuffer();
+
+    })
+
+    .then(buffer => {
+
+        // Excelファイルを読み込む
+        const workbook = XLSX.read(buffer);
+
+        // 「キャラクターデータ」シートを取得
+        const worksheet =
+            workbook.Sheets["キャラクターデータ"];
+
+        if (!worksheet) {
+
+            throw new Error(
+                "「キャラクターデータ」シートが見つかりません"
+            );
+
+        }
+
+        // Excelの表をJavaScriptの配列に変換
+        const rows =
+            XLSX.utils.sheet_to_json(
+                worksheet,
+                {
+                    defval: ""
+                }
+            );
+
+
+        // URLのIDとExcelのIDを照合
+        const row =
+            rows.find(
+                character =>
+                    Number(character.id) === id
+            );
+
+
+        // キャラクターが見つからなかった場合
+        if (!row) {
+
+            detail.innerHTML = `
+                <div class="no-result">
+                    キャラクターが見つかりません。
+                </div>
+            `;
+
+            return;
+        }
+
+
+        // ==============================
+        // Excel → キャラクターデータ
+        // ==============================
+
+        const character = {
+
+            id: Number(row.id),
+
+            number: String(row.number),
+
+            name: String(row.name),
+
+            type: String(row.type),
+
+            image: String(row.image),
+
+            attributes:
+                splitValues(row.attributes),
+
+            hp:
+                Number(row.hp) || 0,
+
+            attack:
+                Number(row.attack) || 0,
+
+            kb:
+                Number(row.kb) || 0,
+
+            attackFrequency:
+                Number(row.attackFrequency) || 0,
+
+            attackInterval:
+                Number(row.attackInterval) || 0,
+
+            speed:
+                Number(row.speed) || 0,
+
+            range:
+                Number(row.range) || 0,
+
+            attackType:
+                String(row.attackType),
+
+            money:
+                Number(row.money) || 0,
+
+            traits:
+                splitValues(row.traits),
+
+            description:
+                String(row.description)
+
+        };
+
+
+        // 詳細画面を表示
+        displayCharacter(character);
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
+
+        detail.innerHTML = `
+
+            <div class="no-result">
+
+                Excelデータの読み込みに失敗しました。<br><br>
+
+                ・Live Serverで開いているか<br>
+                ・characters.xlsxが同じフォルダにあるか<br>
+                ・Excelのシート名が「キャラクターデータ」か<br>
+                ・SheetJSが読み込まれているか
+
+            </div>
+
+        `;
+
+    });
+
+
+// ==============================
+// キャラクター詳細表示
+// ==============================
+
+function displayCharacter(character) {
+    let multiplier = urlMultiplier;
+
+
+    // ==============================
+    // DPS計算
+    // ==============================
+
+    function calculateDPS() {
+
+        const attack =
+            character.attack *
+            multiplier /
+            100;
+
+        const frequencyF =
+            Number(character.attackFrequency);
+
+
+        if (
+            !frequencyF ||
+            frequencyF <= 0
+        ) {
+            return 0;
+        }
+
+
+        // 1秒 = 60Fとして計算
+        return Math.floor(
+            attack * 60 / frequencyF
+        );
+
+    }
+
+
+    // ==============================
+    // 画面を描画
+    // ==============================
+
+    function render() {
+
+        // 倍率をHPに反映
+        const hp =
+            Math.round(
+                character.hp *
+                multiplier /
+                100
+            );
+
+
+        // 倍率を攻撃力に反映
+        const attack =
+            Math.round(
+                character.attack *
+                multiplier /
+                100
+            );
+
+
+        // DPS
+        const dps =
+            calculateDPS();
+
+
+        // ==============================
+        // 属性アイコン
+        // ==============================
+
+        const attributeHtml =
+            character.attributes
+
+                .map(attribute => {
+
+                    const data =
+                        attributeIcons[attribute];
+
+                    if (!data) {
+                        return "";
+                    }
+
+                    return `
+
+                        <div class="attribute-item">
+
+                            <img
+                                src="${data.image}"
+                                alt="${data.name}"
+                            >
+
+                            <span>
+                                ${data.name}
+                            </span>
+
+                        </div>
+
+                    `;
+
+                })
+
+                .join("");
+
+
+        // ==============================
+        // HTMLを表示
+        // ==============================
+
+        detail.innerHTML = `
+
+            <div class="enemy-table">
+
+
+                <!-- ヘッダー -->
+
+                <div class="enemy-header">
+
+                    <div>
+                        No.${character.number}
+                    </div>
+
+                    <div>
+                        ${character.name}
+                    </div>
+
+                </div>
+
+
+                <!-- メイン部分 -->
+
+                <div class="enemy-main">
+
+
+                    <!-- 属性 -->
+
+                    <div class="enemy-attribute">
+
+                        ${
+                            attributeHtml
+                            ||
+                            "属性なし"
+                        }
+
+                    </div>
+
+
+                    <!-- キャラクター画像 -->
+
+                    <div class="enemy-picture">
+
+                        ${
+                            character.image
+
+                            ?
+
+                            `
+                            <img
+                                src="${character.image}"
+                                alt="${character.name}"
+                            >
+                            `
+
+                            :
+
+                            "画像なし"
+                        }
+
+                    </div>
+
+
+                    <!-- ステータス -->
+
+                    <div class="enemy-stats">
+
+
+                        <!-- 1行目 -->
+
+                        <div class="stat-row">
+
+                            <span class="stat-name">
+                                体力
+                            </span>
+
+                            <strong class="stat-value">
+                                ${hp}
+                            </strong>
+
+
+                            <span class="stat-name">
+                                KB
+                            </span>
+
+                            <strong class="stat-value">
+                                ${character.kb}
+                            </strong>
+
+
+                            <span class="stat-name">
+                                攻撃頻度F
+                            </span>
+
+                            <strong class="stat-value">
+                                ${character.attackFrequency}
+                            </strong>
+
+                        </div>
+
+
+                        <!-- 2行目 -->
+
+                        <div class="stat-row">
+
+                            <span class="stat-name">
+                                攻撃力
+                            </span>
+
+                            <strong class="stat-value">
+                                ${attack}
+                            </strong>
+
+
+                            <span class="stat-name">
+                                速度
+                            </span>
+
+                            <strong class="stat-value">
+                                ${character.speed}
+                            </strong>
+
+
+                            <span class="stat-name">
+                                攻撃発生F
+                            </span>
+
+                            <strong class="stat-value">
+                                ${character.attackInterval}
+                            </strong>
+
+                        </div>
+
+
+                        <!-- 3行目 -->
+
+                        <div class="stat-row">
+
+                            <span class="stat-name">
+                                DPS
+                            </span>
+
+                            <strong class="stat-value">
+                                ${dps}
+                            </strong>
+
+
+                            <span class="stat-name">
+                                射程
+                            </span>
+
+                            <strong class="stat-value">
+                                ${character.range}
+                            </strong>
+
+                        </div>
+
+
+                        <!-- 4行目 -->
+
+                        <div class="stat-row">
+
+                            <span class="stat-name">
+                                範囲
+                            </span>
+
+                            <strong class="stat-value">
+                                ${character.attackType}
+                            </strong>
+
+
+                            <span class="stat-name">
+                                お金
+                            </span>
+
+                            <strong class="stat-value">
+                                ${character.money}
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- 強さ倍率 -->
+                <!-- ========================= -->
+
+                <div class="enemy-multiplier">
+
+                    <div class="multiplier-title">
+                        強さ倍率
+                    </div>
+
+
+                    <div class="multiplier-control">
+
+                        <input
+                            type="number"
+                            id="multiplierInput"
+                            value="${multiplier}"
+                            min="1"
+                            step="1"
+                        >
+
+                        <span>%</span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- 特性 -->
+                <!-- ========================= -->
+
+                <div class="enemy-section">
+
+                    <div class="section-title">
+                        特性
+                    </div>
+
+                    <div class="section-content">
+
+                        ${
+                            character.traits.length === 0
+
+                            ?
+
+                            "-"
+
+                            :
+
+                            character.traits.join(" / ")
+
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- 解説 -->
+                <!-- ========================= -->
+
+                <div class="enemy-section">
+
+                    <div class="section-title">
+                        解説
+                    </div>
+
+                    <div class="section-content description">
+
+                        ${
+                            character.description
+                            ||
+                            "-"
+                        }
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        `;
+
+
+        // ==============================
+        // 倍率入力
+        // ==============================
+
+        const multiplierInput =
+            document.getElementById(
+                "multiplierInput"
+            );
+
+
+        multiplierInput.addEventListener(
+            "input",
+            () => {
+
+                let value =
+                    Number(
+                        multiplierInput.value
+                    );
+
+
+                if (
+                    isNaN(value) ||
+                    value < 1
+                ) {
+
+                    value = 1;
+
+                }
+
+
+                multiplier = value;
+
+
+                // 再描画
+                render();
+
+            }
+        );
+
+    }
+
+
+    // 最初は100%
+    render();
+
+}

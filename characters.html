@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャラクター図鑑 - お湯Wiki</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>♨️ お湯Wiki</h1>
+
+    <a href="index.html" class="back-button">
+        ← トップへ戻る
+    </a>
+</header>
+
+
+<main class="zukan">
+
+    <section class="hero">
+        <h2>🤩🤩キャラクター図鑑🤩🤩</h2>
+        <p>属性や名前からキャラクターを検索できます。</p>
+    </section>
+
+
+    <!-- 名前検索 -->
+    <section class="search-box">
+
+        <input
+            type="text"
+            id="nameSearch"
+            placeholder="キャラクター名を検索..."
+        >
+
+    </section>
+
+
+    <!-- 属性 -->
+    <section class="attribute-box">
+
+        <div class="attribute-list">
+
+   <button class="attribute-button" data-attribute="none">
+    <img src="images/white.png" alt="無属性">
+    無属性
+</button>
+
+    <button class="attribute-button" data-attribute="red">
+        <img src="images/red.png" alt="赤い敵">
+        赤い敵
+    </button>
+
+    <button class="attribute-button" data-attribute="floating">
+        <img src="images/floating.png" alt="浮いてる敵">
+        浮いてる敵
+    </button>
+
+    <button class="attribute-button" data-attribute="black">
+        <img src="images/black.png" alt="黒い敵">
+        黒い敵
+    </button>
+
+    <button class="attribute-button" data-attribute="metal">
+        <img src="images/metal.png" alt="メタル">
+        メタル
+    </button>
+
+    <button class="attribute-button" data-attribute="angel">
+        <img src="images/angel.png" alt="天使">
+        天使
+    </button>
+
+    <button class="attribute-button" data-attribute="alien">
+        <img src="images/alien.png" alt="エイリアン">
+        エイリアン
+    </button>
+
+    <button class="attribute-button" data-attribute="zombie">
+        <img src="images/zombie.png" alt="ゾンビ">
+        ゾンビ
+    </button>
+
+    <button class="attribute-button" data-attribute="ancient">
+        <img src="images/ancient.png" alt="古代種">
+        古代種
+    </button>
+
+    <button class="attribute-button" data-attribute="devil">
+        <img src="images/devil.png" alt="悪魔">
+        悪魔
+    </button>
+
+    <button class="attribute-button" data-attribute="witch">
+        <img src="images/witch.png" alt="魔女">
+        魔女
+    </button>
+
+    <button class="attribute-button" data-attribute="apostle">
+        <img src="images/apostle.png" alt="使徒">
+        使徒
+    </button>
+
+    <button class="attribute-button" data-attribute="starAlien">
+        <img src="images/star.png" alt="スターエイリアン">
+        スターエイリアン
+    </button>
+
+    <button class="attribute-button" data-attribute="superLife">
+        <img src="images/superlife.png" alt="超生命体">
+        超生命体
+    </button>
+
+    <button class="attribute-button" data-attribute="beast">
+        <img src="images/beast.png" alt="超獣">
+        超獣
+    </button>
+
+    <button class="attribute-button" data-attribute="sage">
+        <img src="images/sage.png" alt="超賢者">
+        超賢者
+    </button>
+
+    <button class="attribute-button" data-attribute="villain">
+        <img src="images/villain.png" alt="怪人">
+        怪人
+    </button>
+
+    <button class="attribute-button custom-character"
+            data-attribute="custom">
+
+        <img src="images/custom.png" alt="お湯キャラ">
+
+        お湯キャラ
+
+    </button>
+
+</div>
+
+    </section>
+
+<div id="paginationTop"></div>
+
+    <!-- キャラクター一覧 -->
+    <section class="character-results">
+
+        <h3>検索結果</h3>
+
+        <div id="characterList">
+
+            <!-- JavaScriptでここに表示 -->
+
+        </div>
+
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+<script src="characters.js"></script>
+
+</body>
+
+</html>

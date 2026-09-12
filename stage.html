@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ステージ情報 - お湯Wiki</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="stage-view-page">
+
+
+<header>
+    <h1>♨️ お湯Wiki</h1>
+
+    <a href="stages.html" class="back-button">
+        ← 章一覧へ戻る
+    </a>
+</header>
+
+
+<main class="stage-view-main">
+
+
+    <!-- ステージ選択 -->
+
+    <div class="stage-selector">
+
+        <button
+            id="stageSelectorCurrent"
+            class="stage-selector-button"
+            type="button"
+        >
+            ステージ
+            <span class="stage-selector-arrow">
+                ▼
+            </span>
+        </button>
+
+
+        <div
+            id="stageSelectorMenu"
+            class="stage-selector-menu"
+        ></div>
+
+    </div>
+
+
+    <!-- ステージ情報 -->
+
+    <section class="stage-view-section">
+
+        <h2 id="stageInfoTitle">
+    ステージ情報
+</h2>
+
+
+        <div class="stage-info-table">
+
+
+            <!-- 城体力 -->
+
+            <div class="stage-info-row">
+
+                <div class="stage-info-label">
+                    城体力
+                </div>
+
+                <div
+                    id="castleHealth"
+                    class="stage-info-value"
+                >
+                    -
+                </div>
+
+
+                <div class="stage-info-label">
+                    ステージ幅
+                </div>
+
+                <div
+                    id="castleWidth"
+                    class="stage-info-value"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <!-- 最大敵数 -->
+
+            <div class="stage-info-row">
+    <div class="stage-info-label">
+        出撃最大数
+    </div>
+
+    <div
+        id="maxEnemies"
+        class="stage-info-value"
+    >
+        -
+    </div>
+
+    <div class="stage-info-label">
+        統率力
+    </div>
+
+    <div
+        id="leadership"
+        class="stage-info-value"
+    >
+        -
+    </div>
+</div>
+
+<div class="stage-info-row">
+    <div class="stage-info-label">
+        制限
+    </div>
+
+    <div
+        id="spawnRestriction"
+        class="stage-info-value"
+    >
+        -
+    </div>
+</div>
+        </div>
+
+    </section>
+
+
+    <!-- 敵出現情報 -->
+
+    <section class="stage-view-section">
+
+        <h2>
+            敵出現情報
+        </h2>
+
+
+        <div class="stage-enemy-table-wrapper">
+
+            <table class="stage-enemy-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            敵
+                        </th>
+
+                        <th>
+                            倍率
+                        </th>
+
+                        <th>
+                            出現数
+                        </th>
+
+                        <th>
+                            城連動
+                        </th>
+
+                        <th>
+                            初登場
+                        </th>
+
+                        <th>
+                            再登場
+                        </th>
+
+                        <th>
+                            レイヤー
+                        </th>
+
+                        <th>
+                            BOSS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="enemyList">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+
+<script>
+
+const KEY = "oyuWikiStages";
+
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const chapterId =
+    params.get("chapter");
+
+
+const stageId =
+    params.get("stage");
+
+
+let chapters = [];
+
+let characters = [];
+
+let currentChapter = null;
+
+let currentStage = null;
+
+
+
+// =========================
+// 保存データ読み込み
+// =========================
+
+function loadStages() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(KEY) || "[]"
+            );
+
+        return Array.isArray(data)
+            ? data
+            : [];
+
+    } catch {
+
+        return [];
+
+    }
+
+}
+
+
+
+// =========================
+// HTMLエスケープ
+// =========================
+
+function esc(value) {
+
+    return String(value ?? "")
+        .replace(/[&<>'"]/g, char => ({
+
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "'": "&#39;",
+            '"': "&quot;"
+
+        }[char]));
+
+}
+
+
+
+// =========================
+// ステージ検索
+// =========================
+
+function findStage() {
+
+    chapters =
+        loadStages();
+
+
+    if (!chapters.length) {
+        return;
+    }
+
+
+    currentChapter =
+        chapters.find(
+            chapter =>
+                chapter.id === chapterId
+        );
+
+
+    if (!currentChapter) {
+        currentChapter =
+            chapters[0];
+    }
+
+
+    if (
+        !currentChapter.stages ||
+        !currentChapter.stages.length
+    ) {
+        return;
+    }
+
+
+    currentStage =
+        currentChapter.stages.find(
+            stage =>
+                stage.id === stageId
+        );
+
+
+    if (!currentStage) {
+        currentStage =
+            currentChapter.stages[0];
+    }
+
+}
+
+
+
+// =========================
+// ステージ選択メニュー
+// =========================
+
+function renderStageSelector() {
+
+    const button =
+        document.getElementById(
+            "stageSelectorCurrent"
+        );
+
+
+    const menu =
+        document.getElementById(
+            "stageSelectorMenu"
+        );
+
+
+    button.innerHTML = `
+        ${esc(currentStage.name)}
+        <span class="stage-selector-arrow">
+            ▼
+        </span>
+    `;
+
+
+    menu.innerHTML = `
+
+        <div class="stage-selector-chapter-name">
+            ${esc(currentChapter.name)}
+        </div>
+
+        ${
+            currentChapter.stages
+                .map(stage => `
+
+                    <a
+                        class="
+                            stage-selector-item
+                            ${
+                                stage.id === currentStage.id
+                                    ? "selected"
+                                    : ""
+                            }
+                        "
+                        href="
+                            stage.html?chapter=${
+                                encodeURIComponent(
+                                    currentChapter.id
+                                )
+                            }&stage=${
+                                encodeURIComponent(
+                                    stage.id
+                                )
+                            }
+                        "
+                    >
+                        ${esc(stage.name)}
+                    </a>
+
+                `)
+                .join("")
+        }
+
+    `;
+
+}
+
+
+
+// =========================
+// ステージ基本情報
+// =========================
+
+function renderStageInfo() {
+
+    document.getElementById("stageInfoTitle").textContent =
+    currentStage.name;
+
+    document.getElementById(
+        "castleHealth"
+    ).textContent =
+        Number(
+            currentStage.castleHealth ?? 10000
+        ).toLocaleString();
+
+        document.getElementById(
+    "leadership"
+).textContent =
+    Number(
+        currentStage.leadership ?? 0
+    ).toLocaleString();
+
+
+    document.getElementById(
+        "castleWidth"
+    ).textContent =
+        Number(
+            currentStage.castleWidth ?? 3000
+        ).toLocaleString();
+
+
+    document.getElementById(
+        "maxEnemies"
+    ).textContent =
+        currentStage.maxEnemies ?? 8;
+
+
+    document.getElementById(
+        "spawnRestriction"
+    ).textContent =
+        currentStage.spawnRestriction || "なし";
+
+}
+
+
+
+// =========================
+// 敵キャラクター読み込み
+// =========================
+
+async function loadCharacters() {
+
+    try {
+
+        const response =
+            await fetch(
+                "characters.xlsx"
+            );
+
+
+        const buffer =
+            await response.arrayBuffer();
+
+
+        const workbook =
+            XLSX.read(buffer);
+
+
+        const sheet =
+            workbook.Sheets[
+                "キャラクターデータ"
+            ];
+
+
+        characters =
+            XLSX.utils
+                .sheet_to_json(sheet)
+                .map(character => ({
+
+                    id:
+                        character.id,
+
+                    name:
+                        character.name,
+
+                    image:
+                        character.image
+
+                }));
+
+
+    } catch (error) {
+
+        console.error(
+            "キャラクターデータの読み込みに失敗しました。",
+            error
+        );
+
+    }
+
+}
+
+
+
+// =========================
+// 敵出現表
+// =========================
+
+function renderEnemies() {
+
+    const list =
+        document.getElementById(
+            "enemyList"
+        );
+
+
+    const lines =
+        (currentStage.waves || [])
+            .flat();
+
+
+    if (!lines.length) {
+
+        list.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="stage-enemy-empty"
+                >
+                    敵の出現設定がありません。
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        lines.map(line => {
+
+            const character =
+                characters.find(
+                    character =>
+                        Number(character.id) ===
+                        Number(line.enemyId)
+                );
+
+
+            const characterName =
+                character?.name ||
+                "不明";
+
+
+            const image =
+                character?.image ||
+                "";
+
+
+            return `
+
+                <tr>
+
+                    <td class="stage-enemy-character">
+
+                        <a
+                            class="stage-enemy-link"
+                            href="
+                                character.html?id=${
+                                    encodeURIComponent(
+                                        line.enemyId
+                                    )
+                                }&multiplier=${
+                                    encodeURIComponent(
+                                        line.multiplier ?? 100
+                                    )
+                                }
+                            "
+                        >
+
+                            ${
+                                image
+                                    ? `
+                                        <img
+                                            src="${esc(image)}"
+                                            alt=""
+                                        >
+                                    `
+                                    : ""
+                            }
+
+                            <span>
+                                ${esc(characterName)}
+                            </span>
+
+                        </a>
+
+                    </td>
+
+
+                    <td>
+                        ${line.multiplier ?? 100}%
+                    </td>
+
+
+                    <td>
+                        ${line.count ?? 1}
+                    </td>
+
+
+                    <td>
+                        ${line.castleLink ?? 100}%
+                    </td>
+
+
+                    <td>
+                        ${line.time ?? 0}F
+                    </td>
+
+
+                    <td>
+                        ${line.respawn ?? 0}F
+                    </td>
+
+
+                    <td>
+                        ${esc(line.layer ?? "0~9")}
+                    </td>
+
+
+                    <td class="stage-boss-cell">
+
+                        ${
+                            line.boss
+                                ? "BOSS"
+                                : ""
+                        }
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }).join("");
+
+}
+
+
+
+// =========================
+// セレクタ開閉
+// =========================
+
+document
+    .getElementById(
+        "stageSelectorCurrent"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            document
+                .getElementById(
+                    "stageSelectorMenu"
+                )
+                .classList.toggle("open");
+
+        }
+    );
+
+
+
+// =========================
+// 初期化
+// =========================
+
+async function init() {
+
+    findStage();
+
+
+    if (!currentStage) {
+
+        document.querySelector(
+            ".stage-view-main"
+        ).innerHTML = `
+
+            <div class="stage-enemy-empty">
+                ステージが見つかりません。
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    await loadCharacters();
+
+
+    renderStageSelector();
+
+    renderStageInfo();
+
+    renderEnemies();
+
+}
+
+
+init();
+
+</script>
+
+
+</body>
+
+</html>
