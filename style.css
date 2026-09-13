@@ -1911,9 +1911,9 @@ body.character-page {
 @media (max-width: 600px) {
 
    .character-detail {
-    width: calc(100% + 28px);
+    width: 750px;
     max-width: none;
-    margin: 10px 0 10px -14px;
+    margin: 10px 0;
     padding: 0;
     box-sizing: border-box;
 }
@@ -1929,9 +1929,9 @@ body.character-page {
     }
 
     .enemy-main {
-        grid-template-columns: 65px 95px 1fr;
-        min-height: 140px;
-    }
+    grid-template-columns: 65px 95px 1fr;
+    min-height: 180px;
+}
 
     .enemy-attribute {
         padding: 6px;
@@ -1964,6 +1964,18 @@ body.character-page {
         width: 85px;
         height: 85px;
     }
+
+    .stat-row {
+    grid-template-columns:
+        70px
+        120px
+        70px
+        120px
+        90px
+        120px;
+    min-height: 45px;
+}
+
     .enemy-stats {
         min-width: 0;
     }
