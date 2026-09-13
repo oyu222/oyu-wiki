@@ -1928,9 +1928,9 @@ body.character-page {
         padding: 0 8px;
     }
 
-    .enemy-main {
+   .enemy-main {
     grid-template-columns: 65px 95px 1fr;
-    min-height: 180px;
+    min-height: 0;
 }
 
     .enemy-attribute {
@@ -1960,12 +1960,12 @@ body.character-page {
         padding: 6px;
     }
 
-    .enemy-picture img {
-        width: 85px;
-        height: 85px;
-    }
+   .enemy-picture img {
+    width: 75px;
+    height: 75px;
+}
 
-    .stat-row {
+   .stat-row {
     grid-template-columns:
         70px
         120px
@@ -1973,7 +1973,7 @@ body.character-page {
         120px
         90px
         120px;
-    min-height: 45px;
+    min-height: 35px;
 }
 
     .enemy-stats {
