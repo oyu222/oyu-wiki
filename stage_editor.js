@@ -6,14 +6,19 @@ const editId = params.get("id");
 
 const STORAGE_KEY = "oyuWikiStages";
 
-function loadSavedStages() {
-    try {
-        return JSON.parse(
-            localStorage.getItem(STORAGE_KEY) || "[]"
-        );
-    } catch {
-        return [];
+async function loadSavedStages() {
+    const { data, error } = await supabaseClient
+        .from("stage_data")
+        .select("chapters")
+        .eq("id", "main")
+        .maybeSingle();
+
+    if (error) {
+        console.error("Supabase読み込みエラー:", error);
+        return null;
     }
+
+    return data?.chapters ?? null;
 }
 
 let characters = [];
@@ -99,19 +104,22 @@ function esc(value) {
 
 }
 
-const savedChapters = loadSavedStages();
+async function initializeStages() {
+    const savedChapters = await loadSavedStages();
 
-if (
-    Array.isArray(savedChapters) &&
-    savedChapters.every(
-        chapter =>
-            chapter &&
-            Array.isArray(chapter.stages)
-    )
-) {
-    chapters = savedChapters;
+    if (
+        Array.isArray(savedChapters) &&
+        savedChapters.every(
+            chapter =>
+                chapter &&
+                Array.isArray(chapter.stages)
+        )
+    ) {
+        chapters = savedChapters;
+    }
+
+    renderAll();
 }
-
 
 // =========================
 // 現在のステージ
@@ -840,7 +848,7 @@ else if (
 // ステージ保存
 // =========================
 
-function saveCurrentStage() {
+async function saveCurrentStage() {
 
     const stage =
         getCurrentStage();
@@ -885,10 +893,21 @@ stage.castleHealth =
 
     // 保存
 
-    localStorage.setItem(
-        KEY,
-        JSON.stringify(chapters)
-    );
+   // Supabaseへ保存
+const { error } = await supabaseClient
+    .from("stage_data")
+    .upsert({
+        id: "main",
+        chapters: chapters,
+        updated_at: new Date().toISOString()
+    });
+
+if (error) {
+    console.error("Supabase保存エラー:", error);
+    $("status").innerHTML =
+        `<span style="color:red;">保存に失敗しました</span>`;
+    return;
+}
 
 
     // 保存完了表示
@@ -1425,7 +1444,7 @@ fetch("characters.xlsx")
 
         // 最初の表示
         renderCharacters();
-        renderAll();
+initializeStages();
 
     })
     .catch(error => {
