@@ -21,30 +21,6 @@ async function loadSavedStages() {
     return data?.chapters ?? null;
 }
 
-let characters = [];
-
-let selectedCharacterId = null;
-let selectedLineIndex = null;
-
-let chapters = [];
-
-const savedData = localStorage.getItem(KEY);
-
-if (savedData) {
-    try {
-        const parsed = JSON.parse(savedData);
-
-        if (Array.isArray(parsed) && parsed.length > 0) {
-            chapters = parsed;
-        }
-    } catch (error) {
-        console.error(
-            "保存されたステージデータを読み込めませんでした。",
-            error
-        );
-    }
-}
-
 if (chapters.length === 0) {
     chapters = [
         {
@@ -248,10 +224,15 @@ function renderStages() {
                     activeWave = 0;
                     selectedLineIndex = null;
 
-function loadSavedStage() {
+async function loadSavedStage() {
     if (!editId) return false;
 
-    const stages = loadSavedStages();
+    const stages = await loadSavedStages();
+
+    if (!Array.isArray(stages)) {
+        return false;
+    }
+
     const stage = stages.find(
         s => String(s.id) === String(editId)
     );
@@ -1359,9 +1340,7 @@ $("save")
 // キャラクター読み込み
 // ========================================
 
-if (editId) {
-    loadSavedStage();
-} else {
+if (!editId) {
     loadCurrentStage();
 }
 
@@ -1443,8 +1422,13 @@ fetch("characters.xlsx")
 
 
         // 最初の表示
-        renderCharacters();
-initializeStages();
+       renderCharacters();
+
+initializeStages().then(() => {
+    if (editId) {
+        loadCurrentStage();
+    }
+});
 
     })
     .catch(error => {
