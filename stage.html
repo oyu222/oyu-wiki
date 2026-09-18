@@ -14,6 +14,9 @@
     <title>ステージ情報 - お湯Wiki</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 
 </head>
 
@@ -246,25 +249,26 @@ let currentStage = null;
 // 保存データ読み込み
 // =========================
 
-function loadStages() {
+async function loadStages() {
 
-    try {
+    const { data, error } =
+        await supabaseClient
+            .from("stage_data")
+            .select("chapters")
+            .eq("id", "main")
+            .maybeSingle();
 
-        const data =
-            JSON.parse(
-                localStorage.getItem(KEY) || "[]"
-            );
-
-        return Array.isArray(data)
-            ? data
-            : [];
-
-    } catch {
-
+    if (error) {
+        console.error(
+            "Supabase読み込みエラー:",
+            error
+        );
         return [];
-
     }
 
+    return Array.isArray(data?.chapters)
+        ? data.chapters
+        : [];
 }
 
 
@@ -294,10 +298,10 @@ function esc(value) {
 // ステージ検索
 // =========================
 
-function findStage() {
+async function findStage() {
 
-    chapters =
-        loadStages();
+   chapters =
+    await loadStages();
 
 
     if (!chapters.length) {
@@ -697,7 +701,8 @@ document
 
 async function init() {
 
-    findStage();
+    await findStage();
+
 
 
     if (!currentStage) {
