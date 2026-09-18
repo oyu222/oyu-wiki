@@ -2132,4 +2132,23 @@ body.character-page {
     .enemy-stats .stat-row:nth-child(4) {
         display: none !important;
     }
+
+    /* スマホ用の追加項目はPCでは非表示 */
+.mobile-only-section {
+    display: none;
+}
+
+@media (max-width: 600px) {
+
+    /* スマホでは表示 */
+    .mobile-only-section {
+        display: grid;
+        grid-template-columns: 164px 1fr;
+    }
+
+    /* 元の「特性」はスマホでは非表示 */
+    .desktop-trait {
+        display: none !important;
+    }
+}
 }
