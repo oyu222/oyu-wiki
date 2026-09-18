@@ -293,116 +293,108 @@ function displayCharacter(character) {
 
                     <div class="enemy-stats">
 
+    <div class="stat-row">
 
-                        <div class="stat-row">
+        <span class="stat-name">
+            体力
+        </span>
 
-                            <span class="stat-name">
-                                体力
-                            </span>
+        <strong class="stat-value">
+            ${hp}
+        </strong>
 
-                            <strong class="stat-value">
-                                ${hp}
-                            </strong>
+        <span class="stat-name">
+            攻撃力
+        </span>
 
+        <strong class="stat-value">
+            ${attack}
+        </strong>
 
-                            <span class="stat-name">
-                                KB
-                            </span>
-
-                            <strong class="stat-value">
-                                ${character.kb}
-                            </strong>
-
-
-                            <span class="stat-name">
-                                攻撃頻度
-                            </span>
-
-                            <strong class="stat-value">
-                                ${character.attackFrequency}秒
-                            </strong>
-
-                        </div>
+    </div>
 
 
-                        <div class="stat-row">
+    <div class="stat-row">
 
-                            <span class="stat-name">
-                                攻撃力
-                            </span>
+        <span class="stat-name">
+            DPS
+        </span>
 
-                            <strong class="stat-value">
-                                ${attack}
-                            </strong>
+        <strong class="stat-value">
+            ${dps}
+        </strong>
 
+        <span class="stat-name">
+            KB
+        </span>
 
-                            <span class="stat-name">
-                                速度
-                            </span>
+        <strong class="stat-value">
+            ${character.kb}
+        </strong>
 
-                            <strong class="stat-value">
-                                ${character.speed}
-                            </strong>
-
-
-                            <span class="stat-name">
-                                攻撃発生
-                            </span>
-
-                            <strong class="stat-value">
-                                ${character.attackInterval}秒
-                            </strong>
-
-                        </div>
+    </div>
 
 
-                        <div class="stat-row">
+    <div class="stat-row">
 
-                            <span class="stat-name">
-                                DPS
-                            </span>
+        <span class="stat-name">
+            速度
+        </span>
 
-                            <strong class="stat-value">
-                                ${dps}
-                            </strong>
+        <strong class="stat-value">
+            ${character.speed}
+        </strong>
 
+        <span class="stat-name">
+            射程
+        </span>
 
-                            <span class="stat-name">
-                                射程
-                            </span>
+        <strong class="stat-value">
+            ${character.range}
+        </strong>
 
-                            <strong class="stat-value">
-                                ${character.range}
-                            </strong>
-
-                        </div>
-
-
-                        <div class="stat-row">
-
-                            <span class="stat-name">
-                                範囲
-                            </span>
-
-                            <strong class="stat-value">
-                                ${character.attackType}
-                            </strong>
+    </div>
 
 
-                            <span class="stat-name">
-                                お金
-                            </span>
+    <div class="stat-row">
 
-                            <strong class="stat-value">
-                                ${character.money}
-                            </strong>
+        <span class="stat-name">
+            攻撃頻度
+        </span>
 
-                        </div>
+        <strong class="stat-value">
+            ${character.attackFrequency}秒
+        </strong>
 
+        <span class="stat-name">
+            攻撃発生
+        </span>
 
-                    </div>
+        <strong class="stat-value">
+            ${character.attackInterval}秒
+        </strong>
+
+    </div>
+
+</div>
 
                 </div>
+
+
+
+<!-- お金 -->
+
+<div class="enemy-section">
+
+    <div class="section-title">
+        お金
+    </div>
+
+    <div class="section-content">
+        ${character.money}
+    </div>
+
+</div>
 
 
                 <!-- 強さ倍率 -->
