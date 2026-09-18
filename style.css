@@ -1911,7 +1911,7 @@ body.character-page {
 @media (max-width: 600px) {
 
    .character-detail {
-    width: 750px;
+    width: 100%;
     max-width: none;
     margin: 10px 0;
     padding: 0;
@@ -1919,17 +1919,17 @@ body.character-page {
 }
 
     .enemy-header {
-        grid-template-columns: 65px 1fr;
-        min-height: 42px;
-        font-size: 16px;
-    }
+    grid-template-columns: 70px 1fr;
+    min-height: 50px;
+    font-size: 18px;
+}
 
     .enemy-header > div {
         padding: 0 8px;
     }
 
    .enemy-main {
-    grid-template-columns: 65px 95px 1fr;
+    grid-template-columns: 70px 120px 1fr;
     min-height: 0;
 }
 
@@ -1961,18 +1961,18 @@ body.character-page {
     }
 
    .enemy-picture img {
-    width: 75px;
-    height: 75px;
+    width: 100px;
+    height: 100px;
 }
 
    .stat-row {
     grid-template-columns:
-        70px
-        120px
-        70px
-        120px
-        90px
-        120px;
+        42px
+        50px
+        42px
+        50px
+        48px
+        50px;
     min-height: 35px;
 }
 
@@ -1982,15 +1982,15 @@ body.character-page {
 
    
 
-    .stat-name {
-        padding: 0 4px;
-        font-size: 10px;
-    }
+   .stat-name {
+    padding: 0 3px;
+    font-size: 11px;
+}
 
-    .stat-value {
-        padding: 0 4px;
-        font-size: 10px;
-    }
+.stat-value {
+    padding: 0 3px;
+    font-size: 11px;
+}
 
     .enemy-multiplier {
         grid-template-columns: 90px 1fr;
