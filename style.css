@@ -2151,4 +2151,19 @@ body.character-page {
         display: none !important;
     }
 }
+
+@media (max-width: 600px) {
+
+    .enemy-stats {
+        border: 1px solid #ddd !important;
+        overflow: hidden;
+    }
+
+    .enemy-stats .stat-name,
+    .enemy-stats .stat-value {
+        border: 1px solid #ddd !important;
+        box-sizing: border-box;
+    }
+}
+
 }
