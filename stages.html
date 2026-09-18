@@ -6,6 +6,8 @@
     <meta name="robots" content="noindex, nofollow">
     <title>お湯レジェンド - お湯Wiki</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 </head>
 
 <body class="stage-info-page">
@@ -52,30 +54,31 @@ function esc(value) {
 
 }
 
-function loadChapters() {
+async function loadChapters() {
 
-    try {
+    const { data, error } =
+        await supabaseClient
+            .from("stage_data")
+            .select("chapters")
+            .eq("id", "main")
+            .maybeSingle();
 
-        const data =
-            JSON.parse(
-                localStorage.getItem(KEY) || "[]"
-            );
-
-        return Array.isArray(data)
-            ? data
-            : [];
-
-    } catch {
-
+    if (error) {
+        console.error(
+            "Supabase読み込みエラー:",
+            error
+        );
         return [];
-
     }
 
+    return Array.isArray(data?.chapters)
+        ? data.chapters
+        : [];
 }
 
-function renderChapters() {
+async function renderChapters() {
 
-    const chapters = loadChapters();
+    const chapters = await loadChapters();
 
     if (!chapters.length) {
 
