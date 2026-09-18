@@ -484,11 +484,11 @@ function displayCharacter(character) {
 
 
                             <span class="stat-name">
-                                攻撃頻度F
+                                攻撃頻度
                             </span>
 
                             <strong class="stat-value">
-                                ${character.attackFrequency}
+                                ${character.attackFrequency}F
                             </strong>
 
                         </div>
@@ -517,11 +517,11 @@ function displayCharacter(character) {
 
 
                             <span class="stat-name">
-                                攻撃発生F
+                                攻撃発生
                             </span>
 
                             <strong class="stat-value">
-                                ${character.attackInterval}
+                                ${character.attackInterval}F
                             </strong>
 
                         </div>
@@ -607,12 +607,30 @@ function displayCharacter(character) {
 
                 </div>
 
+<div class="enemy-section mobile-only-section">
+    <div class="section-title">お金</div>
+    <div class="section-content">${character.money}円</div>
+</div>
+
+<div class="enemy-section mobile-only-section">
+    <div class="section-title">攻撃特性</div>
+    <div class="section-content">${character.attackType || "-"}</div>
+</div>
+
+<div class="enemy-section mobile-only-section">
+    <div class="section-title">効果/能力</div>
+    <div class="section-content">
+        ${character.traits && character.traits.length
+            ? character.traits.join(" / ")
+            : "なし"}
+    </div>
+</div>
 
                 <!-- ========================= -->
                 <!-- 特性 -->
                 <!-- ========================= -->
 
-                <div class="enemy-section">
+                <div class="enemy-section desktop-trait">
 
                     <div class="section-title">
                         特性
