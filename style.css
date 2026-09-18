@@ -2080,7 +2080,7 @@ body.character-page {
     /* ステータス全体を2列にする */
     .enemy-stats {
         display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
+        grid-template-columns: repeat(4, 1fr) !important;
     }
 
     /* stat-rowの枠を消して、中身をenemy-statsの直接の子として扱う */
@@ -2102,5 +2102,34 @@ body.character-page {
         box-sizing: border-box;
         display: flex;
         align-items: center;
+    }
+        /* ステータスの並び順 */
+    .enemy-stats .stat-row:nth-child(1) > :nth-child(1) { order: 1; }  /* 体力 */
+    .enemy-stats .stat-row:nth-child(1) > :nth-child(2) { order: 2; }
+
+    .enemy-stats .stat-row:nth-child(2) > :nth-child(1) { order: 3; }  /* 攻撃力 */
+    .enemy-stats .stat-row:nth-child(2) > :nth-child(2) { order: 4; }
+
+    .enemy-stats .stat-row:nth-child(3) > :nth-child(1) { order: 5; }  /* DPS */
+    .enemy-stats .stat-row:nth-child(3) > :nth-child(2) { order: 6; }
+
+    .enemy-stats .stat-row:nth-child(1) > :nth-child(3) { order: 7; }  /* KB */
+    .enemy-stats .stat-row:nth-child(1) > :nth-child(4) { order: 8; }
+
+    .enemy-stats .stat-row:nth-child(2) > :nth-child(3) { order: 9; }  /* 速度 */
+    .enemy-stats .stat-row:nth-child(2) > :nth-child(4) { order: 10; }
+
+    .enemy-stats .stat-row:nth-child(3) > :nth-child(3) { order: 11; } /* 射程 */
+    .enemy-stats .stat-row:nth-child(3) > :nth-child(4) { order: 12; }
+
+    .enemy-stats .stat-row:nth-child(1) > :nth-child(5) { order: 13; } /* 攻撃頻度F */
+    .enemy-stats .stat-row:nth-child(1) > :nth-child(6) { order: 14; }
+
+    .enemy-stats .stat-row:nth-child(2) > :nth-child(5) { order: 15; } /* 攻撃発生F */
+    .enemy-stats .stat-row:nth-child(2) > :nth-child(6) { order: 16; }
+
+    /* 「範囲」「お金」は後で別の場所にする */
+    .enemy-stats .stat-row:nth-child(4) {
+        display: none !important;
     }
 }
