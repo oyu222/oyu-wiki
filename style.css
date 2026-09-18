@@ -1967,12 +1967,9 @@ body.character-page {
 
    .stat-row {
     grid-template-columns:
-        42px
-        50px
-        42px
-        50px
-        48px
-        50px;
+        1fr 1fr
+        1fr 1fr
+        1fr 1fr;
     min-height: 35px;
 }
 
@@ -2030,5 +2027,30 @@ body.character-page {
     .description {
         line-height: 1.5;
     }
+
+    @media (max-width: 600px) {
+
+    .enemy-table {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .enemy-multiplier {
+        order: 1;
+    }
+
+    .enemy-header {
+        order: 2;
+    }
+
+    .enemy-main {
+        order: 3;
+    }
+
+    .enemy-section {
+        order: 4;
+    }
+
+}
 }
 }
