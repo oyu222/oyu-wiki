@@ -6,6 +6,8 @@ const editId = params.get("id");
 
 const STORAGE_KEY = "oyuWikiStages";
 
+let chapters = [];
+
 async function loadSavedStages() {
     const { data, error } = await supabaseClient
         .from("stage_data")
@@ -20,6 +22,8 @@ async function loadSavedStages() {
 
     return data?.chapters ?? null;
 }
+
+
 
 if (chapters.length === 0) {
     chapters = [
