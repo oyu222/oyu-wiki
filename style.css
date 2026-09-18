@@ -2075,3 +2075,32 @@ body.character-page {
     }
 
 }
+@media (max-width: 600px) {
+
+    /* ステータス全体を2列にする */
+    .enemy-stats {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* stat-rowの枠を消して、中身をenemy-statsの直接の子として扱う */
+    .enemy-stats .stat-row {
+        display: contents !important;
+    }
+
+    /* ラベル */
+    .enemy-stats .stat-name {
+        min-height: 35px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+    }
+
+    /* 数値 */
+    .enemy-stats .stat-value {
+        min-height: 35px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+    }
+}
