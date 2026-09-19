@@ -2078,6 +2078,25 @@ body.character-page {
     }
 
 }
+
+/* スマホ専用項目はPCでは非表示 */
+.mobile-only-section {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+
+    .mobile-only-section {
+        display: grid !important;
+        grid-template-columns: 90px 1fr;
+    }
+
+    .desktop-trait {
+        display: none !important;
+    }
+
+}
+
 @media (max-width: 600px) {
 
     /* ステータス全体を2列にする */
@@ -2137,23 +2156,7 @@ body.character-page {
     }
 
     /* スマホ用の追加項目はPCでは非表示 */
-.mobile-only-section {
-    display: none;
-}
 
-@media (max-width: 600px) {
-
-    /* スマホでは表示 */
-    .mobile-only-section {
-        display: grid;
-        grid-template-columns: 164px 1fr;
-    }
-
-    /* 元の「特性」はスマホでは非表示 */
-    .desktop-trait {
-        display: none !important;
-    }
-}
 
 @media (max-width: 600px) {
 
