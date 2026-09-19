@@ -2155,10 +2155,12 @@ body.character-page {
 @media (max-width: 600px) {
 
     .enemy-stats {
-    border: 1px solid #ddd !important;
+    border-left: 1px solid #ddd !important;
+    border-right: 1px solid #ddd !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
     overflow: hidden;
 }
-
 .enemy-stats .stat-name,
 .enemy-stats .stat-value {
     border: none !important;
