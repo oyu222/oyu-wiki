@@ -662,11 +662,7 @@ function displayCharacter(character) {
 
 <div class="enemy-section mobile-only-section">
     <div class="section-title">効果/能力</div>
-    <div class="section-content">
-        ${character.traits && character.traits.length
-            ? character.traits.join(" / ").trim()
-            : "なし"}
-    </div>
+    <div class="section-content">${character.traits && character.traits.length ? character.traits.join(" / ") : "なし"}</div>
 </div>
 
                 <!-- ========================= -->
@@ -679,22 +675,7 @@ function displayCharacter(character) {
                         特性
                     </div>
 
-                    <div class="section-content">
-
-                        ${
-                            character.traits.length === 0
-
-                            ?
-
-                            "-"
-
-                            :
-
-                            character.traits.join(" / ").trim()
-
-                        }
-
-                    </div>
+                   <div class="section-content">${character.traits.length === 0 ? "-" : character.traits.join(" / ")}</div>
 
                 </div>
 
