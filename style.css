@@ -2271,4 +2271,32 @@ body.character-page {
     }
 
 }
+
+/* =========================
+   ページネーション スマホ用調整
+========================= */
+
+@media (max-width: 600px) {
+
+    .pagination {
+        gap: 4px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        flex-wrap: nowrap;
+    }
+
+    .pagination button {
+        min-width: 38px;
+        height: 38px;
+        padding: 0 7px;
+        font-size: 14px;
+        border-radius: 7px;
+    }
+
+    .pagination-dots {
+        padding: 0 2px;
+        font-size: 14px;
+    }
+
+}
 }
