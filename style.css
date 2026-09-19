@@ -511,11 +511,14 @@ main {
 }
 
 .attribute-item {
+
     display: flex;
 
     flex-direction: row;
 
     align-items: center;
+
+    justify-content: center;
 
     gap: 6px;
 
@@ -2171,6 +2174,14 @@ body.character-page {
     border-bottom: 0 !important;
 }
 
+}
+
+.attribute-button {
+    font-size: 0;
+}
+
+.attribute-button img {
+    font-size: initial;
 }
 
 }
