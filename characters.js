@@ -44,76 +44,7 @@ const charactersPerPage = 20;
 
 let currentPage = 1;
 
-// ========================================
-// 詳細ページから戻ったときの状態復元
-// ========================================
 
-const returnParams =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const returnPage =
-    Number(
-        returnParams.get("returnPage")
-    );
-
-const returnAttributes =
-    returnParams.get("returnAttributes");
-
-const returnMode =
-    returnParams.get("returnMode");
-
-const returnName =
-    returnParams.get("returnName");
-
-
-// ページ
-if (returnPage >= 1) {
-    currentPage = returnPage;
-}
-
-
-// 属性
-if (returnAttributes) {
-    selectedAttributes =
-        returnAttributes
-            .split(",")
-            .filter(value => value !== "");
-}
-
-
-// 検索方式
-if (
-    returnMode === "and" ||
-    returnMode === "or"
-) {
-    searchMode = returnMode;
-}
-
-
-// 名前検索
-if (returnName !== null) {
-    nameSearch.value = returnName;
-}
-
-
-// 選択中の属性ボタンを復元
-attributeButtons.forEach(
-    button => {
-
-        if (
-            selectedAttributes.includes(
-                button.dataset.attribute
-            )
-        ) {
-            button.classList.add(
-                "selected"
-            );
-        }
-
-    }
-);
 
 // ========================================
 // 詳細ページから戻ってきたときの状態復元
@@ -278,18 +209,7 @@ const andSearchButton =
 const orSearchButton =
     document.getElementById("orSearchButton");
 
-    if (searchMode === "or") {
-
-    orSearchButton.classList.add("selected");
-    andSearchButton.classList.remove("selected");
-
-} else {
-
-    andSearchButton.classList.add("selected");
-    orSearchButton.classList.remove("selected");
-
-}
-
+    
 
 andSearchButton.addEventListener(
     "click",
