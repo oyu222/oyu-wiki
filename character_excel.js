@@ -690,13 +690,7 @@ function displayCharacter(character) {
                         解説
                     </div>
 
-                    <div class="section-content description">
-
-                        ${
-    (character.description || "-").trim()
-}
-
-                    </div>
+                   <div class="section-content description">${(character.description || "-").trim().replace(/\r?\n/g, "<br>")}</div>
 
                 </div>
 
