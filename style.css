@@ -2192,5 +2192,48 @@ body.character-page {
 .attribute-button img {
     font-size: initial;
 }
+/* =========================================
+   キャラクター詳細：文章欄の余白調整
+========================================= */
 
+/* PC */
+@media (min-width: 601px) {
+
+    .enemy-section {
+        min-height: 0 !important;
+    }
+
+    .enemy-section .section-title,
+    .enemy-section .section-content {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .enemy-section .section-content {
+        line-height: 1.5 !important;
+        white-space: pre-line !important;
+    }
+
+}
+
+
+/* スマホ */
+@media (max-width: 600px) {
+
+    .enemy-section {
+        min-height: 0 !important;
+    }
+
+    .enemy-section .section-title,
+    .enemy-section .section-content {
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+    }
+
+    .enemy-section .section-content {
+        line-height: 1.5 !important;
+        white-space: pre-line !important;
+    }
+
+}
 }
