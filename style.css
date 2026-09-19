@@ -2155,15 +2155,17 @@ body.character-page {
 @media (max-width: 600px) {
 
     .enemy-stats {
-        border: 1px solid #ddd !important;
-        overflow: hidden;
-    }
+    border: 1px solid #ddd !important;
+    overflow: hidden;
+}
 
-    .enemy-stats .stat-name,
-    .enemy-stats .stat-value {
-        border: 1px solid #ddd !important;
-        box-sizing: border-box;
-    }
+.enemy-stats .stat-name,
+.enemy-stats .stat-value {
+    border: none !important;
+    border-right: 1px solid #ddd !important;
+    border-bottom: 1px solid #ddd !important;
+    box-sizing: border-box;
+}
 }
 
 }
