@@ -707,10 +707,14 @@ main {
     font-weight: bold;
 }
 
+
 .section-content {
+
     padding: 20px;
 
     font-size: 18px;
+    
+    white-space: pre-line;
 }
 
 .description {
