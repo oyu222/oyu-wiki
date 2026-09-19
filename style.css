@@ -2154,12 +2154,9 @@ body.character-page {
 
 @media (max-width: 600px) {
 
-    .enemy-stats {
-    border-left: 1px solid #ddd !important;
-    border-right: 1px solid #ddd !important;
-    border-top: 0 !important;
-    border-bottom: 0 !important;
-    overflow: hidden;
+   .enemy-stats {
+    border: none !important;
+    overflow: visible;
 }
 .enemy-stats .stat-name,
 .enemy-stats .stat-value {
@@ -2168,6 +2165,12 @@ body.character-page {
     border-bottom: 1px solid #ddd !important;
     box-sizing: border-box;
 }
+
+.enemy-stats .stat-row:last-child .stat-name,
+.enemy-stats .stat-row:last-child .stat-value {
+    border-bottom: 0 !important;
+}
+
 }
 
 }
