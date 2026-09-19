@@ -432,11 +432,7 @@ function displayCharacter(character) {
 
                     <div class="section-content">
 
-                        ${
-                            character.traits.length === 0
-                            ? "-"
-                            : character.traits.join(" / ")
-                        }
+                        <div class="section-content">${character.traits.length === 0 ? "-" : character.traits.join(" / ")}</div>
 
                     </div>
 
@@ -451,11 +447,7 @@ function displayCharacter(character) {
                         解説
                     </div>
 
-                    <div class="section-content description">
-
-                        ${character.description}
-
-                    </div>
+                   <div class="section-content description">${character.description || "-"}</div>
 
                 </div>
 
