@@ -2245,4 +2245,30 @@ body.character-page {
 .description {
     white-space: normal !important;
 }
+
+/* =========================
+   ヘッダー スマホ用調整
+========================= */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 12px 20px;
+        gap: 10px;
+    }
+
+    header h1 {
+        font-size: 24px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .back-button {
+        font-size: 14px;
+        padding: 8px 12px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+}
 }
