@@ -44,6 +44,66 @@ const charactersPerPage = 20;
 
 let currentPage = 1;
 
+// ========================================
+// 詳細ページから戻ってきたときの状態復元
+// ========================================
+
+const returnParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const returnPage =
+    Number(
+        returnParams.get("returnPage")
+    );
+
+const returnAttributes =
+    returnParams.get("returnAttributes");
+
+const returnMode =
+    returnParams.get("returnMode");
+
+const returnName =
+    returnParams.get("returnName");
+
+if (returnPage >= 1) {
+    currentPage = returnPage;
+}
+
+if (returnAttributes) {
+    selectedAttributes =
+        returnAttributes
+            .split(",")
+            .filter(value => value !== "");
+}
+
+if (
+    returnMode === "and" ||
+    returnMode === "or"
+) {
+    searchMode = returnMode;
+}
+
+if (returnName !== null) {
+    nameSearch.value = returnName;
+}
+
+attributeButtons.forEach(
+    button => {
+
+        if (
+            selectedAttributes.includes(
+                button.dataset.attribute
+            )
+        ) {
+            button.classList.add(
+                "selected"
+            );
+        }
+
+    }
+);
 
 // ========================================
 // 属性名
@@ -564,8 +624,31 @@ function displayCharacters(results) {
             "character-row";
 
 
-        row.href =
-            `character.html?id=${character.id}`;
+        const returnParams =
+    new URLSearchParams();
+
+returnParams.set(
+    "returnPage",
+    currentPage
+);
+
+returnParams.set(
+    "returnAttributes",
+    selectedAttributes.join(",")
+);
+
+returnParams.set(
+    "returnMode",
+    searchMode
+);
+
+returnParams.set(
+    "returnName",
+    nameSearch.value
+);
+
+row.href =
+    `character.html?id=${character.id}&${returnParams.toString()}`;
 
 
         const attributeText =
