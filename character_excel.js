@@ -11,6 +11,53 @@ const id = Number(params.get("id"));
 const urlMultiplier = Number(params.get("multiplier")) || 100;
 
 const detail = document.getElementById("characterDetail");
+// キャラクター図鑑へ戻るリンク
+const backButton =
+    document.querySelector(
+        ".back-button"
+    );
+
+const backParams =
+    new URLSearchParams();
+
+const backPage =
+    params.get("returnPage");
+
+const backAttributes =
+    params.get("returnAttributes");
+
+const backMode =
+    params.get("returnMode");
+
+const backName =
+    params.get("returnName");
+
+if (backPage) {
+
+    backParams.set(
+        "returnPage",
+        backPage
+    );
+
+    backParams.set(
+        "returnAttributes",
+        backAttributes || ""
+    );
+
+    backParams.set(
+        "returnMode",
+        backMode || "and"
+    );
+
+    backParams.set(
+        "returnName",
+        backName || ""
+    );
+
+    backButton.href =
+        `characters.html?${backParams.toString()}`;
+
+}
 
 
 // ==============================
