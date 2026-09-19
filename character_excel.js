@@ -664,7 +664,7 @@ function displayCharacter(character) {
     <div class="section-title">効果/能力</div>
     <div class="section-content">
         ${character.traits && character.traits.length
-            ? character.traits.join(" / ")
+            ? character.traits.join(" / ").trim()
             : "なし"}
     </div>
 </div>
@@ -690,7 +690,7 @@ function displayCharacter(character) {
 
                             :
 
-                            character.traits.join(" / ")
+                            character.traits.join(" / ").trim()
 
                         }
 
@@ -712,10 +712,8 @@ function displayCharacter(character) {
                     <div class="section-content description">
 
                         ${
-                            character.description
-                            ||
-                            "-"
-                        }
+    (character.description || "-").trim()
+}
 
                     </div>
 
