@@ -377,10 +377,6 @@ function displayCharacter(character) {
                                 alt="${data.name}"
                             >
 
-                            <span>
-                                ${data.name}
-                            </span>
-
                         </div>
 
                     `;
@@ -594,7 +590,7 @@ function displayCharacter(character) {
                     <div class="multiplier-control">
 
                         <input
-                            type="number"
+                        type="text"
                             id="multiplierInput"
                             value="${multiplier}"
                             min="1"
@@ -694,34 +690,40 @@ function displayCharacter(character) {
             );
 
 
-        multiplierInput.addEventListener(
-            "input",
-            () => {
+       multiplierInput.addEventListener(
+    "blur",
+    () => {
 
-                let value =
-                    Number(
-                        multiplierInput.value
-                    );
+        let value =
+            multiplierInput.value
+                .trim()
+                .replace(/[０-９]/g, char =>
+                    String.fromCharCode(
+                        char.charCodeAt(0) - 0xFEE0
+                    )
+                );
 
+        if (/^[0-9]+$/.test(value)) {
 
-                if (
-                    isNaN(value) ||
-                    value < 1
-                ) {
+            multiplier =
+                Number(value);
 
-                    value = 1;
+            multiplierInput.value =
+                value;
 
-                }
+        } else {
 
+            multiplier = 100;
 
-                multiplier = value;
+            multiplierInput.value =
+                "100";
 
+        }
 
-                // 再描画
-                render();
+        render();
 
-            }
-        );
+    }
+);
 
     }
 
