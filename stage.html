@@ -13,7 +13,7 @@
 
     <title>ステージ情報 - お湯Wiki</title>
 
-    <link rel="stylesheet" href="style.css">
+    
     <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -147,6 +147,8 @@
 
     <!-- 敵出現情報 -->
 
+<section class="stage-view-section">
+
    <div class="stage-enemy-title-row">
 
     <h2>
@@ -252,6 +254,8 @@ let characters = [];
 let currentChapter = null;
 
 let currentStage = null;
+
+let showSeconds = false;
 
 
 
@@ -717,7 +721,7 @@ document
         renderEnemies();
 
     });
-    
+
 
 // =========================
 // セレクタ開閉
