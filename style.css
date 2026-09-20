@@ -733,65 +733,7 @@ body.character-page {
 }
 
 
-/* =========================
-   スマホ対応
-========================= */
 
-@media (max-width: 800px) {
-
-    .menu {
-        grid-template-columns: 1fr;
-    }
-
-    .enemy-header {
-        grid-template-columns: 100px 1fr;
-    }
-
-    .enemy-main {
-        grid-template-columns:
-            100px
-            150px
-            1fr;
-    }
-
-   @media (max-width: 800px) {
-
-    .menu {
-        grid-template-columns: 1fr;
-    }
-
-    .enemy-header {
-        grid-template-columns: 100px 1fr;
-    }
-
-    .enemy-main {
-        grid-template-columns:
-            100px
-            150px
-            1fr;
-    }
-
-    .stat-row {
-        grid-template-columns:
-            70px
-            120px
-            70px
-            120px
-            90px
-            120px;
-    }
-
-    .enemy-picture img {
-        width: 120px;
-        height: 120px;
-    }
-}
-
-    .enemy-picture img {
-        width: 120px;
-        height: 120px;
-    }
-}
 
 
 /* =========================
