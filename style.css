@@ -2416,7 +2416,7 @@ body.character-page {
 @media (min-width: 601px) {
 
     .stage-enemy-section {
-        margin-top: 75px !important;
+        margin-top: 55px !important;
         position: relative !important;
         overflow: visible !important;
     }
