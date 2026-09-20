@@ -689,11 +689,6 @@ function fToSeconds(f) {
 
                 </div>
 
-               <div class="frame-toggle-area">
-    <button id="frameToggleButton" class="frame-toggle">
-        ${showSeconds ? "F表示に切り替え" : "秒表示に切り替え"}
-    </button>
-</div>
 
                 <!-- ========================= -->
                 <!-- 強さ倍率 -->
@@ -717,6 +712,10 @@ function fToSeconds(f) {
                         >
 
                         <span>%</span>
+
+                        <button id="frameToggleButton" class="frame-toggle">
+    ${showSeconds ? "F表示に切り替え" : "秒表示に切り替え"}
+</button>
 
                     </div>
 
