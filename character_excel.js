@@ -615,8 +615,8 @@ function formatFrameValues(text) {
                             </span>
 
                             <strong class="stat-value">
-                              ${showSeconds
-    ? `${fToSeconds(character.attackFrequency).toFixed(2)}秒`
+                             ${showSeconds
+    ? `<span class="seconds-display">${fToSeconds(character.attackFrequency).toFixed(2)}秒</span>`
     : `${character.attackFrequency}F`
 }
                             </strong>
@@ -652,8 +652,8 @@ function formatFrameValues(text) {
 
                            
                                 <strong class="stat-value">
-    ${showSeconds
-    ? `${fToSeconds(character.attackInterval).toFixed(2)}秒`
+   ${showSeconds
+    ? `<span class="seconds-display">${fToSeconds(character.attackInterval).toFixed(2)}秒</span>`
     : `${character.attackInterval}F`
 }
 </strong>
