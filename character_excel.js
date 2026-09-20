@@ -338,6 +338,43 @@ fetch("characters.xlsx")
 function displayCharacter(character) {
     let multiplier = urlMultiplier;
 
+    function formatContinuousAttack(trait) {
+        return trait.replace(
+            /(\d+)連続攻撃\s+((?:\d[\d,]*\s*)+)(?=\(|$)/g,
+            (match, countText, valuesText) => {
+
+                const count = Number(countText);
+
+                const values = valuesText
+                    .trim()
+                    .split(/\s+/);
+
+                const scaledValues = values.map((value, index) => {
+
+                    if (index >= count) {
+                        return value;
+                    }
+
+                    const number = Number(
+                        value.replace(/,/g, "")
+                    );
+
+                    if (!Number.isFinite(number)) {
+                        return value;
+                    }
+
+                    const scaled =
+                        Math.round(number * multiplier / 100);
+
+                    return String(scaled);
+
+                });
+
+                return `${count}連続攻撃 ${scaledValues.join(" ")}`;
+            }
+        );
+    }
+
         // ==============================
     // 連続攻撃の攻撃力を倍率計算
     // ==============================
