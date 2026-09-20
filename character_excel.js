@@ -337,6 +337,7 @@ fetch("characters.xlsx")
 
 function displayCharacter(character) {
     let multiplier = urlMultiplier;
+    let showSeconds = false;
 
 
         // ==============================
@@ -589,8 +590,10 @@ function fToSeconds(f) {
                             </span>
 
                             <strong class="stat-value">
-                               ${character.attackFrequency}F
-（${fToSeconds(character.attackFrequency).toFixed(2)}秒）
+                              ${showSeconds
+    ? `${fToSeconds(character.attackFrequency).toFixed(2)}秒`
+    : `${character.attackFrequency}F`
+}
                             </strong>
 
                         </div>
@@ -624,10 +627,12 @@ function fToSeconds(f) {
 
                            
                                 <strong class="stat-value">
-    ${character.attackInterval}F
-    （${fToSeconds(character.attackInterval).toFixed(2)}秒）
+    ${showSeconds
+    ? `${fToSeconds(character.attackInterval).toFixed(2)}秒`
+    : `${character.attackInterval}F`
+}
 </strong>
-                            </strong>
+</div>
 
                         
 
@@ -684,6 +689,11 @@ function fToSeconds(f) {
 
                 </div>
 
+               <div class="frame-toggle-area">
+    <button id="frameToggleButton" class="frame-toggle">
+        ${showSeconds ? "F表示に切り替え" : "秒表示に切り替え"}
+    </button>
+</div>
 
                 <!-- ========================= -->
                 <!-- 強さ倍率 -->
@@ -771,6 +781,19 @@ function fToSeconds(f) {
                 "multiplierInput"
             );
 
+            const frameToggleButton =
+    document.getElementById("frameToggleButton");
+
+frameToggleButton.addEventListener(
+    "click",
+    () => {
+
+        showSeconds = !showSeconds;
+
+        render();
+
+    }
+);
 
        multiplierInput.addEventListener(
     "blur",
