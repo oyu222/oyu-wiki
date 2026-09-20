@@ -2409,4 +2409,35 @@ body.character-page {
     }
 
 }
+/* =========================================
+   PC：F/秒ボタンを敵出現情報の枠の外へ
+========================================= */
+
+@media (min-width: 601px) {
+
+    .stage-enemy-section {
+        margin-top: 55px !important;
+        position: relative !important;
+        overflow: visible !important;
+    }
+
+    .stage-enemy-title-row {
+        position: relative !important;
+        display: block !important;
+    }
+
+    .stage-enemy-title-row h2 {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .stage-enemy-title-row .frame-toggle {
+        position: absolute !important;
+        left: 12px;
+        top: -47px;
+        margin: 0 !important;
+        z-index: 10;
+    }
+
+}
 
