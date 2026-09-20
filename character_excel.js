@@ -338,19 +338,25 @@ fetch("characters.xlsx")
 function displayCharacter(character) {
     let multiplier = urlMultiplier;
 
-    function formatContinuousAttack(trait) {
+
+        // ==============================
+    // 連続攻撃の攻撃力を倍率計算
+    // ==============================
+       function formatContinuousAttack(trait) {
+
         return trait.replace(
-            /(\d+)連続攻撃\s+((?:\d[\d,]*\s*)+)(?=\(|$)/g,
+            /(\d+)連続攻撃[ \t]+((?:[0-9][0-9,]*(?:\.[0-9]+)?[ \t]*)+)/g,
             (match, countText, valuesText) => {
 
                 const count = Number(countText);
 
                 const values = valuesText
                     .trim()
-                    .split(/\s+/);
+                    .split(/[ \t]+/);
 
                 const scaledValues = values.map((value, index) => {
 
+                    // 連続攻撃の回数分だけ倍率をかける
                     if (index >= count) {
                         return value;
                     }
@@ -366,7 +372,9 @@ function displayCharacter(character) {
                     const scaled =
                         Math.round(number * multiplier / 100);
 
-                    return String(scaled);
+                    return value.includes(",")
+                        ? scaled.toLocaleString("en-US")
+                        : String(scaled);
 
                 });
 
@@ -374,65 +382,7 @@ function displayCharacter(character) {
             }
         );
     }
-
-        // ==============================
-    // 連続攻撃の攻撃力を倍率計算
-    // ==============================
-    function formatContinuousAttack(trait) {
-
-        const match = trait.match(
-            /^([\s\S]*?)(\d+)連続攻撃\s+((?:[0-9][0-9,]*\s*)+)(.*)$/
-        );
-
-        // 「○連続攻撃」がない場合はそのまま
-        if (!match) {
-            return trait;
-        }
-
-        const prefix = match[1];
-        const count = Number(match[2]);
-        const valuesText = match[3];
-        const suffix = match[4];
-
-        const values = valuesText
-            .trim()
-            .split(/\s+/);
-
-        const scaledValues = values.map((value, index) => {
-
-            // 連続攻撃の回数を超えた数字は倍率をかけない
-            if (index >= count) {
-                return value;
-            }
-
-            const number = Number(
-                value.replace(/,/g, "")
-            );
-
-            if (!Number.isFinite(number)) {
-                return value;
-            }
-
-            const scaled =
-                Math.round(number * multiplier / 100);
-
-            // 元がカンマ付きならカンマ付きで表示
-            if (value.includes(",")) {
-                return scaled.toLocaleString("en-US");
-            }
-
-            return String(scaled);
-
-        });
-
-        return (
-            prefix +
-            count +
-            "連続攻撃 " +
-            scaledValues.join(" ") +
-            suffix
-        );
-    }
+    
 
     // ==============================
     // DPS計算
