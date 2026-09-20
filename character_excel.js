@@ -392,7 +392,20 @@ function displayCharacter(character) {
 
 function fToSeconds(f) {
 
-    // 特性内のF表記を秒に変換
+    const frame = Number(f);
+
+    if (!Number.isFinite(frame) || frame < 0) {
+        return 0;
+    }
+
+    return frame * 0.033333;
+}
+
+
+// ==============================
+// 特性内のF表記を秒に変換
+// ==============================
+
 function formatFrameValues(text) {
 
     if (!showSeconds) {
@@ -407,14 +420,7 @@ function formatFrameValues(text) {
     );
 }
 
-    const frame = Number(f);
 
-    if (!Number.isFinite(frame) || frame < 0) {
-        return 0;
-    }
-
-    return frame * 0.033333;
-}
 
     // ==============================
     // DPS計算
