@@ -147,11 +147,21 @@
 
     <!-- 敵出現情報 -->
 
-    <section class="stage-view-section">
+   <div class="stage-enemy-title-row">
 
-        <h2>
-            敵出現情報
-        </h2>
+    <h2>
+        敵出現情報
+    </h2>
+
+    <button
+        id="frameToggleButton"
+        class="frame-toggle"
+        type="button"
+    >
+        秒表示に切り替え
+    </button>
+
+</div>
 
 
         <div class="stage-enemy-table-wrapper">
@@ -271,7 +281,20 @@ async function loadStages() {
         : [];
 }
 
+// =========================
+// F → 秒変換
+// =========================
 
+function fToSeconds(f) {
+
+    const frame = Number(f);
+
+    if (!Number.isFinite(frame) || frame < 0) {
+        return 0;
+    }
+
+    return frame * 0.033333;
+}
 
 // =========================
 // HTMLエスケープ
@@ -638,12 +661,18 @@ function renderEnemies() {
 
 
                     <td>
-                        ${line.time ?? 0}F
+                        ${showSeconds
+    ? `${fToSeconds(line.time ?? 0).toFixed(2)}秒`
+    : `${line.time ?? 0}F`
+}
                     </td>
 
 
                     <td>
-                        ${line.respawn ?? 0}F
+                        ${showSeconds
+    ? `${fToSeconds(line.respawn ?? 0).toFixed(2)}秒`
+    : `${line.respawn ?? 0}F`
+}
                     </td>
 
 
@@ -671,6 +700,24 @@ function renderEnemies() {
 }
 
 
+document
+    .getElementById("frameToggleButton")
+    .addEventListener("click", () => {
+
+        showSeconds = !showSeconds;
+
+        const button =
+            document.getElementById("frameToggleButton");
+
+        button.textContent =
+            showSeconds
+                ? "F表示に切り替え"
+                : "秒表示に切り替え";
+
+        renderEnemies();
+
+    });
+    
 
 // =========================
 // セレクタ開閉
