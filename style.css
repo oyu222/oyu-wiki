@@ -2441,3 +2441,24 @@ body.character-page {
 
 }
 
+/* =========================
+   お湯Wiki ロゴ
+========================= */
+
+.site-logo {
+    width: 66px;
+    height: 66px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+@media (max-width: 600px) {
+
+    .site-logo {
+        width: 36px;
+        height: 36px;
+        margin-right: 4px;
+    }
+
+}
+
