@@ -385,6 +385,20 @@ function displayCharacter(character) {
         );
     }
 
+// ==============================
+// F → 秒変換
+// ==============================
+
+function fToSeconds(f) {
+
+    const frame = Number(f);
+
+    if (!Number.isFinite(frame) || frame < 0) {
+        return 0;
+    }
+
+    return frame * 0.033333;
+}
 
     // ==============================
     // DPS計算
@@ -575,7 +589,8 @@ function displayCharacter(character) {
                             </span>
 
                             <strong class="stat-value">
-                                ${character.attackFrequency}F
+                               ${character.attackFrequency}F
+（${fToSeconds(character.attackFrequency).toFixed(2)}秒）
                             </strong>
 
                         </div>
@@ -607,11 +622,14 @@ function displayCharacter(character) {
                                 攻撃発生
                             </span>
 
-                            <strong class="stat-value">
-                                ${character.attackInterval}F
+                           
+                                <strong class="stat-value">
+    ${character.attackInterval}F
+    （${fToSeconds(character.attackInterval).toFixed(2)}秒）
+</strong>
                             </strong>
 
-                        </div>
+                        
 
 
                         <!-- 3行目 -->
