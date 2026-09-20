@@ -2299,4 +2299,19 @@ body.character-page {
     }
 
 }
+
+.frame-toggle-area {
+    display: flex;
+    justify-content: center;
+    margin: 12px 0;
+}
+
+.frame-toggle {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
 }
