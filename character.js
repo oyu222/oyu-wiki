@@ -180,7 +180,7 @@ function displayCharacter(character) {
             return 0;
         }
 
-        const frequencySeconds = frequencyF * 0.033333;
+        const frequencySeconds = frequency * 0.033333;
 
 return Math.round(
     attack / frequencySeconds
