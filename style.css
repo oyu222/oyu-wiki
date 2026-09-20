@@ -2416,7 +2416,7 @@ body.character-page {
 @media (min-width: 601px) {
 
     .stage-enemy-section {
-        margin-top: 55px !important;
+        margin-top: 75px !important;
         position: relative !important;
         overflow: visible !important;
     }
@@ -2434,7 +2434,7 @@ body.character-page {
     .stage-enemy-title-row .frame-toggle {
         position: absolute !important;
         left: 12px;
-        top: -47px;
+        top: -35px;
         margin: 0 !important;
         z-index: 10;
     }
