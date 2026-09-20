@@ -2403,4 +2403,9 @@ body.character-page {
     }
 
 }
+@media (max-width: 800px) {
+    .menu {
+        grid-template-columns: 1fr;
+    }
+}
 
