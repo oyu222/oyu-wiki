@@ -2319,4 +2319,24 @@ body.character-page {
 
 }
 
+/* =========================================
+   敵出現情報タイトル＋F/秒切り替え
+========================================= */
+
+.stage-enemy-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.stage-enemy-title-row h2 {
+    flex: 1;
+}
+
+.stage-enemy-title-row .frame-toggle {
+    margin: 8px 12px;
+    flex-shrink: 0;
+}
+
 }
