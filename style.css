@@ -687,6 +687,8 @@ main {
 
     grid-template-columns: 150px 1fr;
 
+    min-height: 65px;
+
     border-bottom: 1px solid #ddd;
 }
 
@@ -711,7 +713,16 @@ main {
     padding: 20px;
 
     font-size: 18px;
+
+    white-space: pre-line;
 }
+
+.description {
+    line-height: 1.5;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 
 /* =========================
    キャラクターページ
@@ -743,6 +754,23 @@ body.character-page {
             1fr;
     }
 
+   @media (max-width: 800px) {
+
+    .menu {
+        grid-template-columns: 1fr;
+    }
+
+    .enemy-header {
+        grid-template-columns: 100px 1fr;
+    }
+
+    .enemy-main {
+        grid-template-columns:
+            100px
+            150px
+            1fr;
+    }
+
     .stat-row {
         grid-template-columns:
             70px
@@ -752,6 +780,12 @@ body.character-page {
             90px
             120px;
     }
+
+    .enemy-picture img {
+        width: 120px;
+        height: 120px;
+    }
+}
 
     .enemy-picture img {
         width: 120px;
@@ -1621,7 +1655,7 @@ body.character-page {
 
     border-collapse: collapse;
 
-    table-layout: auto;
+    table-layout: fixed;
 
     font-size: 13px;
 
@@ -1655,6 +1689,10 @@ body.character-page {
 }
 
 
+.stage-enemy-character {
+    min-width: 150px;
+}
+
 
 .stage-enemy-link {
     display: flex;
@@ -1668,7 +1706,6 @@ body.character-page {
     text-decoration: none;
 
     text-align: left;
-    white-space: nowrap;
 }
 
 
@@ -1735,6 +1772,11 @@ body.character-page {
     }
 
 
+    .stage-info-row .stage-info-label:nth-of-type(2),
+    .stage-info-row .stage-info-label:nth-of-type(2) + .stage-info-value {
+        border-top: 1px solid #ddd;
+    }
+
 
     .stage-selector-menu {
         width: 100%;
@@ -1747,9 +1789,17 @@ body.character-page {
 
 }
 
+.stage-enemy-table {
+    table-layout: auto;
+}
+
 .stage-enemy-character {
     width: 220px;
     min-width: 220px;
+}
+
+.stage-enemy-link {
+    white-space: nowrap;
 }
 
 
@@ -1862,10 +1912,7 @@ body.character-page {
         white-space: nowrap;
         margin: 0 0 8px;
     }
-
-}
-
-/* =========================================
+    /* =========================================
    キャラクター詳細ページ
    スマホ用コンパクト調整
 ========================================= */
@@ -1927,6 +1974,14 @@ body.character-page {
     height: 100px;
 }
 
+   .stat-row {
+    grid-template-columns:
+        1fr 1fr
+        1fr 1fr
+        1fr 1fr;
+    min-height: 35px;
+}
+
     .enemy-stats {
         min-width: 0;
     }
@@ -1982,6 +2037,8 @@ body.character-page {
         line-height: 1.5;
     }
 
+    @media (max-width: 600px) {
+
     .enemy-table {
         display: flex;
         flex-direction: column;
@@ -2004,6 +2061,30 @@ body.character-page {
     }
 
 }
+}
+}
+@media (max-width: 600px) {
+
+    /* ステータスを1行ずつ独立させる */
+    .enemy-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-row {
+        display: contents;
+    }
+
+    .stat-name,
+    .stat-value {
+        min-height: 35px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+    }
+
+}
+
 /* スマホ専用項目はPCでは非表示 */
 .mobile-only-section {
     display: none !important;
@@ -2080,26 +2161,31 @@ body.character-page {
         display: none !important;
     }
 
+    /* スマホ用の追加項目はPCでは非表示 */
 
 
-    .enemy-stats {
-        border: none !important;
-        overflow: visible;
-    }
+@media (max-width: 600px) {
 
-    .enemy-stats .stat-name,
-    .enemy-stats .stat-value {
-        border: none !important;
-        border-right: 1px solid #ddd !important;
-        border-bottom: 1px solid #ddd !important;
-        box-sizing: border-box;
-    }
+   .enemy-stats {
+    border: none !important;
+    overflow: visible;
+}
+.enemy-stats .stat-name,
+.enemy-stats .stat-value {
+    border: none !important;
+    border-right: 1px solid #ddd !important;
+    border-bottom: 1px solid #ddd !important;
+    box-sizing: border-box;
+}
 
-    .enemy-stats .stat-row:last-child .stat-name,
-    .enemy-stats .stat-row:last-child .stat-value {
-        border-bottom: 0 !important;
-    }
+.enemy-stats .stat-row:last-child .stat-name,
+.enemy-stats .stat-row:last-child .stat-value {
+    border-bottom: 0 !important;
+}
 
+}
+
+}
 
 .attribute-button {
     font-size: 0;
@@ -2127,7 +2213,7 @@ body.character-page {
 
     .enemy-section .section-content {
         line-height: 1.5 !important;
-
+        white-space: pre-line !important;
     }
 
 }
@@ -2148,7 +2234,7 @@ body.character-page {
 
     .enemy-section .section-content {
         line-height: 1.5 !important;
-
+        white-space: pre-line !important;
     }
 
 }
@@ -2158,7 +2244,9 @@ body.character-page {
     white-space: normal !important;
 }
 
-
+.description {
+    white-space: normal !important;
+}
 
 /* =========================
    ヘッダー スマホ用調整
@@ -2241,17 +2329,31 @@ body.character-page {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 12px;
+}
 
+.stage-enemy-title-row h2 {
+    flex: 1;
+}
+
+.stage-enemy-title-row .frame-toggle {
+    margin: 8px 12px;
+    flex-shrink: 0;
+}
+
+/* 敵出現情報のタイトルと切り替えボタンを横並び */
+.stage-enemy-title-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
     width: 100%;
     box-sizing: border-box;
 }
 
 .stage-enemy-title-row h2 {
-    flex: 1 1 auto;
-    width: auto;
-    margin: 0;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    margin: 0 !important;
 }
 
 .stage-enemy-title-row .frame-toggle {
@@ -2259,7 +2361,54 @@ body.character-page {
     margin: 8px 12px 8px 8px;
 }
 
+/* =========================================
+   ステージ：PC版のみF/秒ボタンを見出しの上へ
+========================================= */
 
+@media (min-width: 601px) {
+
+    .stage-enemy-title-row {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .stage-enemy-title-row h2 {
+        order: 2;
+        width: 100% !important;
+        flex: none !important;
+    }
+
+    .stage-enemy-title-row .frame-toggle {
+        order: 1;
+        margin: 8px 12px !important;
+    }
+
+}
+/* =========================================
+   PC：F/秒切り替えボタンを枠の外へ
+========================================= */
+
+@media (min-width: 601px) {
+
+    .stage-enemy-title-row {
+        position: relative;
+        display: block !important;
+    }
+
+    .stage-enemy-title-row h2 {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .stage-enemy-title-row .frame-toggle {
+        position: absolute;
+        left: 0;
+        bottom: calc(100% + 8px);
+        margin: 0 !important;
+    }
+
+}
 /* =========================================
    PC：F/秒ボタンを敵出現情報の枠の外へ
 ========================================= */
@@ -2313,4 +2462,3 @@ body.character-page {
 
 }
 
-}
