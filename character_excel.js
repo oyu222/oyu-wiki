@@ -344,6 +344,8 @@ function displayCharacter(character) {
     // ==============================
        function formatContinuousAttack(trait) {
 
+                console.log("連続攻撃チェック:", trait, "倍率:", multiplier);
+
         return trait.replace(
             /(\d+)連続攻撃[ \t]+((?:[0-9][0-9,]*(?:\.[0-9]+)?[ \t]*)+)/g,
             (match, countText, valuesText) => {
@@ -382,7 +384,7 @@ function displayCharacter(character) {
             }
         );
     }
-    
+
 
     // ==============================
     // DPS計算
