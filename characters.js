@@ -457,6 +457,25 @@ nameSearch.addEventListener(
 // キャラクターを絞り込む
 // ========================================
 
+// ========================================
+// 属性の上位互換を考慮
+// ========================================
+
+function hasAttribute(character, attribute) {
+
+    // エイリアンにはスターエイリアンも含める
+    if (attribute === "alien") {
+
+        return (
+            character.attributes.includes("alien") ||
+            character.attributes.includes("starAlien")
+        );
+
+    }
+
+    return character.attributes.includes(attribute);
+}
+
 function filterCharacters() {
 
     const keyword =
@@ -510,11 +529,9 @@ function filterCharacters() {
             if (searchMode === "and") {
 
                 return selectedAttributes.every(
-                    attribute =>
-                        character.attributes.includes(
-                            attribute
-                        )
-                );
+    attribute =>
+        hasAttribute(character, attribute)
+);
 
             }
 
@@ -526,11 +543,9 @@ function filterCharacters() {
             if (searchMode === "or") {
 
                 return selectedAttributes.some(
-                    attribute =>
-                        character.attributes.includes(
-                            attribute
-                        )
-                );
+    attribute =>
+        hasAttribute(character, attribute)
+);
 
             }
 
