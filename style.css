@@ -2361,3 +2361,28 @@ body.character-page {
     margin: 8px 12px 8px 8px;
 }
 
+/* =========================================
+   ステージ：PC版のみF/秒ボタンを見出しの上へ
+========================================= */
+
+@media (min-width: 601px) {
+
+    .stage-enemy-title-row {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .stage-enemy-title-row h2 {
+        order: 2;
+        width: 100% !important;
+        flex: none !important;
+    }
+
+    .stage-enemy-title-row .frame-toggle {
+        order: 1;
+        margin: 8px 12px !important;
+    }
+
+}
+
