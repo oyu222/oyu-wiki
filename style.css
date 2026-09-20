@@ -2311,4 +2311,12 @@ body.character-page {
     white-space: nowrap;
 }
 
+@media (max-width: 600px) {
+
+    .seconds-display {
+        transform: translateY(1px);
+    }
+
+}
+
 }
