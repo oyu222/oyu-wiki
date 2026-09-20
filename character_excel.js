@@ -344,7 +344,7 @@ function displayCharacter(character) {
     // ==============================
        function formatContinuousAttack(trait) {
 
-        
+
 
         return trait.replace(
             /(\d+)連続攻撃[ \t]+((?:[0-9][0-9,]*(?:\.[0-9]+)?[ \t]*)+)/g,
@@ -391,30 +391,24 @@ function displayCharacter(character) {
     // ==============================
 
     function calculateDPS() {
+    const attack =
+        character.attack *
+        multiplier /
+        100;
 
-        const attack =
-            character.attack *
-            multiplier /
-            100;
+    const frequency =
+        Number(character.attackFrequency);
 
-        const frequencyF =
-            Number(character.attackFrequency);
-
-
-        if (
-            !frequencyF ||
-            frequencyF <= 0
-        ) {
-            return 0;
-        }
-
-
-        // 1秒 = 60Fとして計算
-        return Math.floor(
-            attack * 60 / frequencyF
-        );
-
+    if (!frequency || frequency === 0) {
+        return 0;
     }
+
+    const frequencySeconds = frequency * 0.033333;
+
+    return Math.round(
+        attack / frequencySeconds
+    );
+}
 
 
     // ==============================
