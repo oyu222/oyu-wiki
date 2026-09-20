@@ -13,7 +13,7 @@
 
     <title>ステージ情報 - お湯Wiki</title>
 
-    
+
     <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -198,9 +198,7 @@
                             再登場
                         </th>
 
-                        <th>
-                            レイヤー
-                        </th>
+
 
                         <th>
                             BOSS
@@ -572,7 +570,7 @@ function renderEnemies() {
             <tr>
 
                 <td
-                    colspan="8"
+                    colspan="7"
                     class="stage-enemy-empty"
                 >
                     敵の出現設定がありません。
@@ -679,10 +677,7 @@ function renderEnemies() {
 }
                     </td>
 
-
-                    <td>
-                        ${esc(line.layer ?? "0~9")}
-                    </td>
+                    
 
 
                     <td class="stage-boss-cell">
