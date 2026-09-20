@@ -338,6 +338,64 @@ fetch("characters.xlsx")
 function displayCharacter(character) {
     let multiplier = urlMultiplier;
 
+        // ==============================
+    // 連続攻撃の攻撃力を倍率計算
+    // ==============================
+    function formatContinuousAttack(trait) {
+
+        const match = trait.match(
+            /^([\s\S]*?)(\d+)連続攻撃\s+((?:[0-9][0-9,]*\s*)+)(.*)$/
+        );
+
+        // 「○連続攻撃」がない場合はそのまま
+        if (!match) {
+            return trait;
+        }
+
+        const prefix = match[1];
+        const count = Number(match[2]);
+        const valuesText = match[3];
+        const suffix = match[4];
+
+        const values = valuesText
+            .trim()
+            .split(/\s+/);
+
+        const scaledValues = values.map((value, index) => {
+
+            // 連続攻撃の回数を超えた数字は倍率をかけない
+            if (index >= count) {
+                return value;
+            }
+
+            const number = Number(
+                value.replace(/,/g, "")
+            );
+
+            if (!Number.isFinite(number)) {
+                return value;
+            }
+
+            const scaled =
+                Math.round(number * multiplier / 100);
+
+            // 元がカンマ付きならカンマ付きで表示
+            if (value.includes(",")) {
+                return scaled.toLocaleString("en-US");
+            }
+
+            return String(scaled);
+
+        });
+
+        return (
+            prefix +
+            count +
+            "連続攻撃 " +
+            scaledValues.join(" ") +
+            suffix
+        );
+    }
 
     // ==============================
     // DPS計算
@@ -397,6 +455,9 @@ function displayCharacter(character) {
         // DPS
         const dps =
             calculateDPS();
+
+                    const formattedTraits =
+            character.traits.map(formatContinuousAttack);
 
 
         // ==============================
@@ -662,7 +723,7 @@ function displayCharacter(character) {
 
 <div class="enemy-section mobile-only-section">
     <div class="section-title">効果/能力</div>
-    <div class="section-content">${character.traits && character.traits.length ? character.traits.join(" / ") : "なし"}</div>
+    <div class="section-content">${formattedTraits.length ? formattedTraits.join(" / ") : "なし"}</div>
 </div>
 
                 <!-- ========================= -->
@@ -675,7 +736,7 @@ function displayCharacter(character) {
                         特性
                     </div>
 
-                   <div class="section-content">${character.traits.length === 0 ? "-" : character.traits.join(" / ")}</div>
+                   <div class="section-content">${formattedTraits.length === 0 ? "-" : formattedTraits.join(" / ")}</div>
 
                 </div>
 
