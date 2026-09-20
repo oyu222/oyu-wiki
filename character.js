@@ -185,6 +185,42 @@ function displayCharacter(character) {
         );
     }
 
+    function formatContinuousAttack(trait) {
+        return trait.replace(
+            /(\d+)連続攻撃[ \t]+((?:[0-9][0-9,]*(?:\.[0-9]+)?[ \t]*)+)/g,
+            (match, countText, valuesText) => {
+
+                const count = Number(countText);
+
+                const values = valuesText
+                    .trim()
+                    .split(/[ \t]+/);
+
+                const scaledValues = values.map((value, index) => {
+                    if (index >= count) {
+                        return value;
+                    }
+
+                    const number = Number(
+                        value.replace(/,/g, "")
+                    );
+
+                    if (!Number.isFinite(number)) {
+                        return value;
+                    }
+
+                    const scaled =
+                        Math.round(number * multiplier / 100);
+
+                    return value.includes(",")
+                        ? scaled.toLocaleString("en-US")
+                        : String(scaled);
+                });
+
+                return `${count}連続攻撃 ${scaledValues.join(" ")}`;
+            }
+        );
+    }
 
     function render() {
 
@@ -432,7 +468,7 @@ function displayCharacter(character) {
 
                     <div class="section-content">
 
-                        <div class="section-content">${character.traits.length === 0 ? "-" : character.traits.join(" / ")}</div>
+                        <div class="section-content">${character.traits.length === 0 ? "-" : character.traits.map(formatContinuousAttack).join(" / ")}</div>
 
                     </div>
 
