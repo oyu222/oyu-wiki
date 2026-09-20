@@ -392,6 +392,21 @@ function displayCharacter(character) {
 
 function fToSeconds(f) {
 
+    // 特性内のF表記を秒に変換
+function formatFrameValues(text) {
+
+    if (!showSeconds) {
+        return text;
+    }
+
+    return text.replace(
+        /(\d+(?:\.\d+)?)[FＦ]/g,
+        (match, frame) => {
+            return `${fToSeconds(frame).toFixed(2)}秒`;
+        }
+    );
+}
+
     const frame = Number(f);
 
     if (!Number.isFinite(frame) || frame < 0) {
@@ -455,7 +470,11 @@ function fToSeconds(f) {
             calculateDPS();
 
                     const formattedTraits =
-            character.traits.map(formatContinuousAttack);
+    character.traits.map(trait =>
+        formatFrameValues(
+            formatContinuousAttack(trait)
+        )
+    );
 
 
         // ==============================
