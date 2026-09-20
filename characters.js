@@ -189,6 +189,14 @@ searchModeBox.innerHTML = `
         OR検索
     </button>
 
+    <button
+    id="clearSearchButton"
+    class="search-mode-button"
+>
+    クリア
+</button>
+
+
 `;
 
 
@@ -208,6 +216,9 @@ const andSearchButton =
 
 const orSearchButton =
     document.getElementById("orSearchButton");
+
+    const clearSearchButton =
+    document.getElementById("clearSearchButton");
 
     
 
@@ -436,6 +447,47 @@ attributeButtons.forEach(button => {
 
 });
 
+// ========================================
+// 検索条件クリア
+// ========================================
+
+clearSearchButton.addEventListener(
+    "click",
+    () => {
+
+        // 名前検索をクリア
+        nameSearch.value = "";
+
+        // 属性選択をすべて解除
+        selectedAttributes = [];
+
+        attributeButtons.forEach(
+            button => {
+                button.classList.remove(
+                    "selected"
+                );
+            }
+        );
+
+        // AND検索に戻す
+        searchMode = "and";
+
+        andSearchButton.classList.add(
+            "selected"
+        );
+
+        orSearchButton.classList.remove(
+            "selected"
+        );
+
+        // 1ページ目に戻す
+        currentPage = 1;
+
+        // 全件表示
+        filterCharacters();
+
+    }
+);
 
 // ========================================
 // 名前検索
