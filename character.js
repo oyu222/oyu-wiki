@@ -180,9 +180,11 @@ function displayCharacter(character) {
             return 0;
         }
 
-        return Math.floor(
-            attack / frequency
-        );
+        const frequencySeconds = frequencyF * 0.033333;
+
+return Math.round(
+    attack / frequencySeconds
+);
     }
 
     function formatContinuousAttack(trait) {
