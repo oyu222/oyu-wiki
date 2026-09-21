@@ -47,60 +47,92 @@
 
     <div class="stage-editor-window">
 
+
+
+       <!-- =================================
+     ① マップ種類
+================================== -->
+
+<section class="stage-column map-type-column">
+
+    <div class="stage-column-title">
+        ①
+    </div>
+
+    <div class="stage-column-buttons">
+
+        <button id="addMapType">
+            追加
+        </button>
+
+        <button id="deleteMapType">
+            削除
+        </button>
+
+    </div>
+
+    <div
+        id="mapTypeList"
+        class="stage-list"
+    ></div>
+
+    <div class="stage-bottom-buttons">
+
+        <button>
+            マップをコピー
+        </button>
+
+        <button>
+            マップ貼り付け
+        </button>
+
+        <button>
+            マップを削除
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     ② 章
+================================== -->
+
+<section class="stage-column chapter-column">
+
+    <div class="stage-column-title">
+        ②
+    </div>
+
+    <div class="stage-column-buttons">
+
+        <button id="addChapter">
+            追加
+        </button>
+
+        <button id="deleteChapter">
+            削除
+        </button>
+
+    </div>
+
+    <div
+        id="chapterList"
+        class="stage-list"
+    ></div>
+
+</section>
+
+
         <!-- =================================
-             ① 章
-        ================================== -->
-
-        <section class="stage-column chapter-column">
-
-            <div class="stage-column-title">
-                ①
-            </div>
-
-            <div class="stage-column-buttons">
-
-                <button id="addChapter">
-                    追加
-                </button>
-
-                <button id="deleteChapter">
-                    削除
-                </button>
-
-            </div>
-
-            <div
-                id="chapterList"
-                class="stage-list"
-            ></div>
-
-            <div class="stage-bottom-buttons">
-
-                <button>
-                    マップをコピー
-                </button>
-
-                <button>
-                    マップ貼り付け
-                </button>
-
-                <button>
-                    マップを削除
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================
-             ② ステージ
+             ③ ステージ
         ================================== -->
 
         <section class="stage-column stage-list-column">
 
             <div class="stage-column-title">
-                ②
+                ③
             </div>
 
             <div class="stage-column-buttons">
@@ -140,13 +172,13 @@
 
 
         <!-- =================================
-             ③ キャラクター
+             ④ キャラクター
         ================================== -->
 
         <section class="stage-column character-column">
 
             <div class="stage-column-title">
-                ③
+                ④
             </div>
 
             <input
@@ -165,7 +197,7 @@
 
 
         <!-- =================================
-             ④＋⑤ メイン
+             ⑤ メイン
         ================================== -->
 
         <section class="stage-main">
