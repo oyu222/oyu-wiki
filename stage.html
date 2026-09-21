@@ -436,47 +436,6 @@ async function findStage() {
 
 }
 
-   chapters =
-    await loadStages();
-
-
-    if (!chapters.length) {
-        return;
-    }
-
-
-    currentChapter =
-        chapters.find(
-            chapter =>
-                chapter.id === chapterId
-        );
-
-
-    if (!currentChapter) {
-        currentChapter =
-            chapters[0];
-    }
-
-
-    if (
-        !currentChapter.stages ||
-        !currentChapter.stages.length
-    ) {
-        return;
-    }
-
-
-    currentStage =
-        currentChapter.stages.find(
-            stage =>
-                stage.id === stageId
-        );
-
-
-    if (!currentStage) {
-        currentStage =
-            currentChapter.stages[0];
-    }
 
 
 
