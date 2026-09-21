@@ -30,7 +30,7 @@
 <main class="stage-info-list">
 
     <div class="stage-info-title">
-        お湯レジェンド
+        ステージ
     </div>
 
     <div class="stage-info-divider"></div>
@@ -41,10 +41,14 @@
 
 <script>
 
-const KEY = "oyuWikiStages";
+const mapType = new URLSearchParams(
+    window.location.search
+).get("mapType");
+
 
 const chapterList =
     document.getElementById("chapterList");
+
 
 function esc(value) {
 
@@ -61,64 +65,223 @@ function esc(value) {
 
 }
 
-async function loadChapters() {
+
+async function loadData() {
 
     const { data, error } =
         await supabaseClient
             .from("stage_data")
-            .select("chapters")
+            .select("chapters, map_types")
             .eq("id", "main")
             .maybeSingle();
 
+
     if (error) {
+
         console.error(
             "Supabase読み込みエラー:",
             error
         );
-        return [];
+
+        return {
+            chapters: [],
+            mapTypes: []
+        };
+
     }
 
-    return Array.isArray(data?.chapters)
-        ? data.chapters
-        : [];
+
+    return {
+
+        chapters:
+            Array.isArray(data?.chapters)
+                ? data.chapters
+                : [],
+
+        mapTypes:
+            Array.isArray(data?.map_types)
+                ? data.map_types
+                : []
+
+    };
+
 }
 
-async function renderChapters() {
 
-    const chapters = await loadChapters();
+// =========================
+// マップ種類一覧
+// =========================
 
-    if (!chapters.length) {
+async function renderMapTypes() {
+
+    const data =
+        await loadData();
+
+
+    let mapTypes =
+        data.mapTypes;
+
+
+    // 新データがまだない場合は
+    // 旧データをお湯レジェンドとして扱う
+    if (!mapTypes.length) {
+
+        mapTypes = [
+
+            {
+                id: "map_legacy",
+                name: "お湯レジェンド",
+                chapters: data.chapters
+            }
+
+        ];
+
+    }
+
+
+    document
+        .querySelector(".stage-info-title")
+        .textContent =
+            "ステージ図鑑";
+
+
+    if (!mapTypes.length) {
 
         chapterList.innerHTML = `
             <div class="stage-info-empty">
-                まだステージがありません。
+                まだマップがありません。
             </div>
         `;
 
         return;
+
     }
 
+
     chapterList.innerHTML =
-        chapters.map((chapter, index) => `
+        mapTypes
+            .map(
+                map => `
 
-            <a
-                class="stage-info-chapter"
-                href="stage.html?chapter=${encodeURIComponent(chapter.id)}"
-            >
+                    <a
+                        class="stage-info-chapter"
+                        href="stages.html?mapType=${encodeURIComponent(map.id)}"
+                    >
 
-                <span class="stage-info-chapter-number">
-                    ${index + 1}
-                </span>
+                        <span class="stage-info-chapter-number">
+                            -
+                        </span>
 
-                <span class="stage-info-chapter-name">
-                    ${esc(chapter.name)}
-                </span>
+                        <span class="stage-info-chapter-name">
+                            ${esc(map.name)}
+                        </span>
 
-            </a>
+                    </a>
 
-        `).join("");
+                `
+            )
+            .join("");
 
 }
+
+
+// =========================
+// 章一覧
+// =========================
+
+async function renderChapters() {
+
+    const data =
+        await loadData();
+
+
+    let mapTypes =
+        data.mapTypes;
+
+
+    // 旧データとの互換
+    if (!mapTypes.length) {
+
+        mapTypes = [
+
+            {
+                id: "map_legacy",
+                name: "お湯レジェンド",
+                chapters: data.chapters
+            }
+
+        ];
+
+    }
+
+
+    const selectedMap =
+        mapTypes.find(
+            map =>
+                String(map.id) ===
+                String(mapType)
+        );
+
+
+    if (!selectedMap) {
+
+        await renderMapTypes();
+        return;
+
+    }
+
+
+    document
+        .querySelector(".stage-info-title")
+        .textContent =
+            selectedMap.name;
+
+
+    if (
+        !Array.isArray(selectedMap.chapters) ||
+        !selectedMap.chapters.length
+    ) {
+
+        chapterList.innerHTML = `
+            <div class="stage-info-empty">
+                まだ章がありません。
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    chapterList.innerHTML =
+        selectedMap.chapters
+            .map(
+                (chapter, index) => `
+
+                    <a
+                        class="stage-info-chapter"
+                        href="
+                            stage.html?mapType=${encodeURIComponent(selectedMap.id)}
+                            &chapter=${encodeURIComponent(chapter.id)}
+                        "
+                    >
+
+                        <span class="stage-info-chapter-number">
+                            ${index + 1}
+                        </span>
+
+                        <span class="stage-info-chapter-name">
+                            ${esc(chapter.name)}
+                        </span>
+
+                    </a>
+
+                `
+            )
+            .join("");
+
+}
+
 
 renderChapters();
 
