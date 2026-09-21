@@ -797,7 +797,7 @@ body.character-page {
 
 .stage-editor-window {
     display: grid;
-    grid-template-columns: 195px 195px 205px minmax(700px, 1fr);
+    grid-template-columns: 150px 180px 195px 205px minmax(700px, 1fr);
     width: 100%;
     height: calc(100vh - 100px);
     min-height: 650px;
@@ -807,7 +807,7 @@ body.character-page {
 }
 
 
-/* 左3列 */
+/* 左4列 */
 
 .stage-column {
     display: flex;
@@ -1217,7 +1217,7 @@ body.character-page {
 
     .stage-editor-window {
         grid-template-columns:
-            160px 180px 250px minmax(500px, 1fr);
+            140px 160px 180px 220px minmax(500px, 1fr);
     }
 
 }
