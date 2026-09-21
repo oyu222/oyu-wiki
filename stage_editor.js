@@ -6,22 +6,51 @@ const editId = params.get("id");
 
 const STORAGE_KEY = "oyuWikiStages";
 
+let mapTypes = [];
+
 let chapters = [];
+
+let selectedMapTypeIndex = 0;
+
 let selectedCharacterId = null;
 
 async function loadSavedStages() {
-    const { data, error } = await supabaseClient
-        .from("stage_data")
-        .select("chapters")
-        .eq("id", "main")
-        .maybeSingle();
+
+    const { data, error } =
+        await supabaseClient
+            .from("stage_data")
+            .select("chapters, map_types")
+            .eq("id", "main")
+            .maybeSingle();
 
     if (error) {
-        console.error("Supabase読み込みエラー:", error);
-        return null;
+
+        console.error(
+            "Supabase読み込みエラー:",
+            error
+        );
+
+        return {
+            chapters: [],
+            mapTypes: []
+        };
+
     }
 
-    return data?.chapters ?? null;
+    return {
+
+        chapters:
+            Array.isArray(data?.chapters)
+                ? data.chapters
+                : [],
+
+        mapTypes:
+            Array.isArray(data?.map_types)
+                ? data.map_types
+                : []
+
+    };
+
 }
 
 
@@ -86,20 +115,56 @@ function esc(value) {
 }
 
 async function initializeStages() {
-    const savedChapters = await loadSavedStages();
 
+    const savedData =
+        await loadSavedStages();
+
+
+    // 新しいマップ種類データがある場合
     if (
-        Array.isArray(savedChapters) &&
-        savedChapters.every(
-            chapter =>
-                chapter &&
-                Array.isArray(chapter.stages)
-        )
+        Array.isArray(savedData.mapTypes) &&
+        savedData.mapTypes.length > 0
     ) {
-        chapters = savedChapters;
+
+        mapTypes =
+            savedData.mapTypes;
+
     }
 
+    // まだマップ種類データがない場合
+    else {
+
+        const legacyChapters =
+            savedData.chapters.length > 0
+                ? savedData.chapters
+                : chapters;
+
+        mapTypes = [
+
+            {
+                id: "map_legacy",
+
+                name: "お湯レジェンド",
+
+                chapters:
+                    legacyChapters
+            }
+
+        ];
+
+    }
+
+
+    // 最初のマップ種類を選択
+    selectedMapTypeIndex = 0;
+
+
+    chapters =
+        mapTypes[0]?.chapters || [];
+
+
     renderAll();
+
 }
 
 // =========================
@@ -113,6 +178,80 @@ function getCurrentStage() {
     ]?.stages[
         selectedStageIndex
     ];
+
+}
+
+
+// =========================
+// マップ種類表示
+// =========================
+
+function renderMapTypes() {
+
+    $("mapTypeList").innerHTML =
+        mapTypes.map(
+            (mapType, index) => `
+
+                <button
+                    type="button"
+                    class="
+                        stage-side-item
+                        ${
+                            index === selectedMapTypeIndex
+                                ? "selected"
+                                : ""
+                        }
+                    "
+                    data-map-type="${index}"
+                >
+
+                    ${esc(mapType.name)}
+
+                </button>
+
+            `
+        ).join("");
+
+
+    document
+        .querySelectorAll(
+            "#mapTypeList [data-map-type]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    selectedMapTypeIndex =
+                        Number(
+                            button.dataset.mapType
+                        );
+
+
+                    chapters =
+                        mapTypes[
+                            selectedMapTypeIndex
+                        ].chapters;
+
+
+                    selectedChapterIndex = 0;
+
+                    selectedStageIndex = 0;
+
+                    activeWave = 0;
+
+                    selectedLineIndex = null;
+
+
+                    loadCurrentStage();
+
+                    renderAll();
+
+                }
+            );
+
+        });
 
 }
 
@@ -884,8 +1023,17 @@ const { error } = await supabaseClient
     .from("stage_data")
     .upsert({
         id: "main",
-        chapters: chapters,
-        updated_at: new Date().toISOString()
+
+        // 旧ページとの互換用
+        chapters:
+            mapTypes[0]?.chapters || [],
+
+        // 新しい本体データ
+        map_types:
+            mapTypes,
+
+        updated_at:
+            new Date().toISOString()
     });
 
 if (error) {
@@ -918,6 +1066,181 @@ if (error) {
     renderStages();
 }
 
+
+// =========================
+// マップ種類追加
+// =========================
+
+function addMapType() {
+
+    const name =
+        prompt(
+            "マップ種類の名前を入力してください。"
+        );
+
+
+    if (!name) return;
+
+
+    const newMapType = {
+
+        id:
+            "map_" +
+            Date.now(),
+
+        name:
+            name,
+
+        chapters: [
+
+            {
+
+                id:
+                    "chapter_" +
+                    Date.now(),
+
+                name:
+                    "第1章",
+
+                stages: [
+
+                    {
+
+                        id:
+                            "stage_" +
+                            Date.now(),
+
+                        name:
+                            "ステージ1",
+
+                        description: "",
+
+                        castleHealth:
+                            10000,
+
+                        castleWidth:
+                            3000,
+
+                        maxEnemies:
+                            8,
+
+                        spawnRestriction:
+                            "",
+
+                        enemyLimit:
+                            0,
+
+                        waves:
+                            [[]]
+
+                    }
+
+                ]
+
+            }
+
+        ]
+
+    };
+
+
+    mapTypes.push(
+        newMapType
+    );
+
+
+    selectedMapTypeIndex =
+        mapTypes.length - 1;
+
+
+    chapters =
+        newMapType.chapters;
+
+
+    selectedChapterIndex = 0;
+
+    selectedStageIndex = 0;
+
+    activeWave = 0;
+
+
+    loadCurrentStage();
+
+    renderAll();
+
+}
+
+
+// =========================
+// マップ種類削除
+// =========================
+
+function deleteMapType() {
+
+    if (mapTypes.length <= 1) {
+
+        alert(
+            "マップ種類は最低1つ必要です。"
+        );
+
+        return;
+
+    }
+
+
+    const mapType =
+        mapTypes[
+            selectedMapTypeIndex
+        ];
+
+
+    if (!mapType) return;
+
+
+    if (
+        !confirm(
+            `「${mapType.name}」を削除しますか？`
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    mapTypes.splice(
+        selectedMapTypeIndex,
+        1
+    );
+
+
+    selectedMapTypeIndex =
+        Math.min(
+            selectedMapTypeIndex,
+            mapTypes.length - 1
+        );
+
+
+    chapters =
+        mapTypes[
+            selectedMapTypeIndex
+        ].chapters;
+
+
+    selectedChapterIndex = 0;
+
+    selectedStageIndex = 0;
+
+    activeWave = 0;
+
+    selectedLineIndex = null;
+
+
+    loadCurrentStage();
+
+    renderAll();
+
+}
 
 // =========================
 // 章追加
@@ -1191,6 +1514,8 @@ if (editId) {
 // =========================
 function renderAll() {
 
+     renderMapTypes();
+
     renderChapters();
 
     renderStages();
@@ -1205,6 +1530,19 @@ function renderAll() {
 // =========================
 // イベント
 // =========================
+
+$("addMapType")
+    .addEventListener(
+        "click",
+        addMapType
+    );
+
+
+$("deleteMapType")
+    .addEventListener(
+        "click",
+        deleteMapType
+    );
 
 $("addChapter")
     .addEventListener(
