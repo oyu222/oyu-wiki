@@ -243,6 +243,10 @@ const params =
     );
 
 
+const mapTypeId =
+    params.get("mapType");
+
+
 const chapterId =
     params.get("chapter");
 
@@ -252,6 +256,8 @@ const stageId =
 
 
 let chapters = [];
+
+let currentMapType = null;
 
 let characters = [];
 
@@ -272,7 +278,7 @@ async function loadStages() {
     const { data, error } =
         await supabaseClient
             .from("stage_data")
-            .select("chapters")
+            .select("chapters, map_types")
             .eq("id", "main")
             .maybeSingle();
 
@@ -281,12 +287,23 @@ async function loadStages() {
             "Supabase読み込みエラー:",
             error
         );
-        return [];
+        return {
+    chapters: [],
+    mapTypes: []
+};
     }
 
-    return Array.isArray(data?.chapters)
-        ? data.chapters
-        : [];
+    return {
+    chapters:
+        Array.isArray(data?.chapters)
+            ? data.chapters
+            : [],
+
+    mapTypes:
+        Array.isArray(data?.map_types)
+            ? data.map_types
+            : []
+};
 }
 
 // =========================
@@ -331,6 +348,94 @@ function esc(value) {
 
 async function findStage() {
 
+    const savedData =
+        await loadStages();
+
+
+    let mapTypes =
+        savedData.mapTypes;
+
+
+    // 旧データとの互換性
+    if (!mapTypes.length) {
+
+        mapTypes = [
+            {
+                id: "map_legacy",
+                name: "お湯レジェンド",
+                chapters: savedData.chapters
+            }
+        ];
+
+    }
+
+
+    if (!mapTypes.length) {
+        return;
+    }
+
+
+    currentMapType =
+        mapTypes.find(
+            map =>
+                String(map.id) ===
+                String(mapTypeId)
+        );
+
+
+    if (!currentMapType) {
+        currentMapType = mapTypes[0];
+    }
+
+
+    chapters =
+        Array.isArray(currentMapType.chapters)
+            ? currentMapType.chapters
+            : [];
+
+
+    if (!chapters.length) {
+        return;
+    }
+
+
+    currentChapter =
+        chapters.find(
+            chapter =>
+                String(chapter.id) ===
+                String(chapterId)
+        );
+
+
+    if (!currentChapter) {
+        currentChapter =
+            chapters[0];
+    }
+
+
+    if (
+        !currentChapter.stages ||
+        !currentChapter.stages.length
+    ) {
+        return;
+    }
+
+
+    currentStage =
+        currentChapter.stages.find(
+            stage =>
+                String(stage.id) ===
+                String(stageId)
+        );
+
+
+    if (!currentStage) {
+        currentStage =
+            currentChapter.stages[0];
+    }
+
+}
+
    chapters =
     await loadStages();
 
@@ -373,7 +478,7 @@ async function findStage() {
             currentChapter.stages[0];
     }
 
-}
+
 
 
 
@@ -423,16 +528,20 @@ function renderStageSelector() {
                             }
                         "
                         href="
-                            stage.html?chapter=${
-                                encodeURIComponent(
-                                    currentChapter.id
-                                )
-                            }&stage=${
-                                encodeURIComponent(
-                                    stage.id
-                                )
-                            }
-                        "
+    stage.html?mapType=${
+        encodeURIComponent(
+            currentMapType.id
+        )
+    }&chapter=${
+        encodeURIComponent(
+            currentChapter.id
+        )
+    }&stage=${
+        encodeURIComponent(
+            stage.id
+        )
+    }
+"
                     >
                         ${esc(stage.name)}
                     </a>
@@ -755,6 +864,24 @@ async function init() {
 
     await findStage();
 
+
+        if (currentMapType) {
+
+        const backButton =
+            document.querySelector(
+                ".back-button"
+            );
+
+        if (backButton) {
+
+            backButton.href =
+                `stages.html?mapType=${encodeURIComponent(
+                    currentMapType.id
+                )}`;
+
+        }
+
+    }
 
 
     if (!currentStage) {
