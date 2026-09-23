@@ -651,12 +651,7 @@ function addLine() {
 
     respawn: 0,
 
-    layer: "0~9",
-
-    killCount: 0,
-
-    score: 0
-
+    
 });
 
     selectedLineIndex =
@@ -877,35 +872,6 @@ function renderSpawnLines() {
                     </td>
 
 
-                    <td>
-                        <input
-                            type="text"
-                            value="${line.layer ?? "0~9"}"
-                            data-field="layer"
-                            data-index="${index}"
-                        >
-                    </td>
-
-
-                    <td>
-                        <input
-                            type="number"
-                            min="0"
-                            value="${line.killCount ?? 0}"
-                            data-field="killCount"
-                            data-index="${index}"
-                        >
-                    </td>
-
-
-                    <td>
-                        <input
-                            type="number"
-                            value="${line.score ?? 0}"
-                            data-field="score"
-                            data-index="${index}"
-                        >
-                    </td>
 
                 </tr>
             `;
