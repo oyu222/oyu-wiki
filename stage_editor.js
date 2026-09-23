@@ -671,7 +671,39 @@ function addLine() {
 // ウェーブ
 // =========================
 
+// =========================
+// ライン並び替え
+// =========================
 
+function moveLine(direction) {
+
+    const stage = getCurrentStage();
+
+    if (!stage) return;
+
+    const lines = stage.waves?.[activeWave];
+
+    if (!lines) return;
+
+    if (selectedLineIndex === null) {
+        alert("並び替えるラインを選択してください。");
+        return;
+    }
+
+    const from = selectedLineIndex;
+    const to = from + direction;
+
+    if (to < 0 || to >= lines.length) {
+        return;
+    }
+
+    [lines[from], lines[to]] =
+        [lines[to], lines[from]];
+
+    selectedLineIndex = to;
+
+    renderAll();
+}
 
 // =========================
 // ライン
@@ -1635,6 +1667,18 @@ $("copyLine")
             renderAll();
 
         }
+    );
+
+    $("moveLineUp")
+    .addEventListener(
+        "click",
+        () => moveLine(-1)
+    );
+
+$("moveLineDown")
+    .addEventListener(
+        "click",
+        () => moveLine(1)
     );
 
     $("deleteLine")
