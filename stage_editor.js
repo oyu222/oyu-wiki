@@ -14,6 +14,8 @@ let selectedMapTypeIndex = 0;
 
 let selectedCharacterId = null;
 
+let selectedAttributes = [];
+
 async function loadSavedStages() {
 
     const { data, error } =
@@ -98,6 +100,77 @@ function $(id) {
 
 }
 
+// =========================
+// 属性フィルター
+// =========================
+
+function renderAttributeFilters() {
+
+    const attributes = [
+        ...new Set(
+            characters.flatMap(
+                character => character.attributes || []
+            )
+        )
+    ];
+
+    $("attributeFilterList").innerHTML =
+        attributes.map(attribute => `
+
+            <label>
+                <input
+                    type="checkbox"
+                    value="${esc(attribute)}"
+                    data-attribute-filter
+                >
+                ${esc(attribute)}
+            </label>
+
+        `).join("");
+
+    document
+        .querySelectorAll("[data-attribute-filter]")
+        .forEach(input => {
+
+            input.addEventListener(
+                "change",
+                () => {
+
+                    selectedAttributes =
+                        Array.from(
+                            document.querySelectorAll(
+                                "[data-attribute-filter]:checked"
+                            )
+                        ).map(
+                            input => input.value
+                        );
+
+                    renderCharacters();
+
+                }
+            );
+
+        });
+
+}
+
+function splitValues(value) {
+
+    if (
+        value === undefined ||
+        value === null ||
+        String(value).trim() === ""
+    ) {
+        return [];
+    }
+
+    return String(value)
+        .replace(/、/g, ",")
+        .split(",")
+        .map(value => value.trim())
+        .filter(value => value !== "");
+
+}
 
 function esc(value) {
 
@@ -471,12 +544,25 @@ function renderCharacters() {
 
 
     const result =
-        characters
-            .filter(character =>
+    characters
+        .filter(character => {
+
+            const nameMatch =
                 String(character.name || "")
                     .toLowerCase()
-                    .includes(query)
-            )
+                    .includes(query);
+
+            const attributeMatch =
+                selectedAttributes.length === 0 ||
+                selectedAttributes.every(
+                    attribute =>
+                        (character.attributes || [])
+                            .includes(attribute)
+                );
+
+            return nameMatch && attributeMatch;
+
+        });
             
 
 
@@ -1753,7 +1839,10 @@ fetch("characters.xlsx")
                             String(row.name),
 
                         image:
-                            String(row.image)
+                            String(row.image),
+
+                            attributes:
+    splitValues(row.attributes),
 
                     };
 
@@ -1775,7 +1864,8 @@ fetch("characters.xlsx")
 
 
         // 最初の表示
-       renderCharacters();
+       renderAttributeFilters();
+renderCharacters();
 
 initializeStages().then(() => {
     if (editId) {
