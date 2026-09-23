@@ -1008,26 +1008,35 @@ placeholder="例: 1500~1800"
 
 function sanitizeTimingInput(input) {
 
-    const value = input.value;
+    // 全角数字を半角数字に変換
+    const normalized =
+        input.value.replace(
+            /[０-９]/g,
+            char =>
+                String.fromCharCode(
+                    char.charCodeAt(0) - 0xFEE0
+                )
+        );
 
+    // 数字だけを取り出す
     const parts =
-        value
-            .match(/\d+/g) || [];
+        normalized.match(/\d+/g) || [];
 
     if (parts.length === 0) {
         input.value = "";
         return;
     }
 
+    // 数字は最大2つまで
     let result =
         parts
             .slice(0, 2)
             .join("～");
 
-    // 「1500～」と入力途中でも維持する
+    // 最後に数字以外が入力された場合は「～」を付ける
     if (
         parts.length === 1 &&
-        /[^\d]$/.test(value)
+        /\D$/.test(normalized)
     ) {
         result += "～";
     }
