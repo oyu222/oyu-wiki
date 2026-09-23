@@ -477,7 +477,7 @@ function renderCharacters() {
                     .toLowerCase()
                     .includes(query)
             )
-            .slice(0, 300);
+            
 
 
     $("characterList").innerHTML =
@@ -651,7 +651,7 @@ function addLine() {
 
     respawn: 0,
 
-    
+
 });
 
     selectedLineIndex =
