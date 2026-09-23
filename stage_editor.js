@@ -104,6 +104,29 @@ function $(id) {
 // 属性フィルター
 // =========================
 
+const attributeNames = {
+
+    none: "無",
+    red: "赤",
+    floating: "浮",
+    black: "黒",
+    metal: "鉄",
+    angel: "天",
+    alien: "エ",
+    zombie: "ゾ",
+    ancient: "古",
+    devil: "悪",
+    witch: "魔",
+    apostle: "使",
+    starAlien: "星エ",
+    superLife: "生",
+    beast: "獣",
+    sage: "賢",
+    villain: "怪",
+    custom: "湯"
+
+};
+
 function renderAttributeFilters() {
 
     const attributes = [
@@ -120,10 +143,10 @@ function renderAttributeFilters() {
             <label>
                 <input
                     type="checkbox"
-                    value="${esc(attribute)}"
+                    value="${esc(attributeNames[attribute] || attribute)}"
                     data-attribute-filter
                 >
-                ${esc(attribute)}
+               ${esc(attributeNames[attribute] || attribute)}
             </label>
 
         `).join("");
