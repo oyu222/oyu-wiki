@@ -959,9 +959,9 @@ function renderSpawnLines() {
 
                     <td>
                         <input
-                            type="number"
-                            min="0"
-                            step="0.1"
+                            type="text"
+                            inputmode="numeric"
+placeholder="例: 1500~1800"
                             value="${line.time ?? 0}"
                             data-field="time"
                             data-index="${index}"
@@ -971,9 +971,9 @@ function renderSpawnLines() {
 
                     <td>
                         <input
-                            type="number"
-                            min="0"
-                            step="0.1"
+                            type="text"
+                            inputmode="numeric"
+placeholder="例: 1500~1800"
                             value="${line.respawn ?? 0}"
                             data-field="respawn"
                             data-index="${index}"
@@ -1006,11 +1006,54 @@ function renderSpawnLines() {
 
         });
 
+function sanitizeTimingInput(input) {
+
+    const value = input.value;
+
+    const parts =
+        value
+            .match(/\d+/g) || [];
+
+    if (parts.length === 0) {
+        input.value = "";
+        return;
+    }
+
+    let result =
+        parts
+            .slice(0, 2)
+            .join("～");
+
+    // 「1500～」と入力途中でも維持する
+    if (
+        parts.length === 1 &&
+        /[^\d]$/.test(value)
+    ) {
+        result += "～";
+    }
+
+    input.value = result;
+}
+
 
     // 入力変更
     document
         .querySelectorAll("[data-field]")
         .forEach(input => {
+
+input.addEventListener(
+    "input",
+    () => {
+
+        if (
+            input.dataset.field === "time" ||
+            input.dataset.field === "respawn"
+        ) {
+            sanitizeTimingInput(input);
+        }
+
+    }
+);
 
             input.addEventListener(
                 "change",
