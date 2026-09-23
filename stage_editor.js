@@ -143,7 +143,7 @@ function renderAttributeFilters() {
             <label>
                 <input
                     type="checkbox"
-                    value="${esc(attributeNames[attribute] || attribute)}"
+                    value="value="${esc(attribute)}""
                     data-attribute-filter
                 >
                ${esc(attributeNames[attribute] || attribute)}
