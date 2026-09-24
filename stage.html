@@ -765,9 +765,11 @@ function renderEnemies() {
 
 
                     <td>
-                        ${showSeconds
-    ? `${fToSeconds(line.respawn ?? 0)}秒`
-    : `${line.respawn ?? 0}F`
+                        ${Number(line.respawn ?? 0) === 0
+    ? "-"
+    : showSeconds
+        ? `${fToSeconds(line.respawn)}秒`
+        : `${line.respawn}F`
 }
                     </td>
 
