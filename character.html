@@ -47,6 +47,28 @@
 
 <script src="character_excel.js?v=3"></script>
 
+<script>
+const characterParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const backButton =
+    document.querySelector(".back-button");
+
+const returnUrl =
+    characterParams.get("return");
+
+if (
+    characterParams.get("from") === "stage" &&
+    returnUrl &&
+    backButton
+) {
+    backButton.href = returnUrl;
+    backButton.textContent = "← ステージへ戻る";
+}
+</script>
+
 </body>
 
 </html>
