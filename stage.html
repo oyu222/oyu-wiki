@@ -710,14 +710,18 @@ function renderEnemies() {
                             class="stage-enemy-link"
                             href="
                                 character.html?id=${
-                                    encodeURIComponent(
-                                        line.enemyId
-                                    )
-                                }&multiplier=${
-                                    encodeURIComponent(
-                                        line.multiplier ?? 100
-                                    )
-                                }
+    encodeURIComponent(
+        line.enemyId
+    )
+}&multiplier=${
+    encodeURIComponent(
+        line.multiplier ?? 100
+    )
+}&from=stage&return=${
+    encodeURIComponent(
+        window.location.href
+    )
+}
                             "
                         >
 
