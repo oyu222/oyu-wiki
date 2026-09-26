@@ -16,6 +16,20 @@ const backButton =
     document.querySelector(
         ".back-button"
     );
+    const fromStage =
+    params.get("from") === "stage";
+
+const returnUrl =
+    params.get("return");
+
+if (
+    fromStage &&
+    returnUrl &&
+    backButton
+) {
+    backButton.href = returnUrl;
+    backButton.textContent = "← ステージへ戻る";
+}
 
 const backParams =
     new URLSearchParams();
