@@ -6,6 +6,24 @@ const params = new URLSearchParams(window.location.search);
 const id = Number(params.get("id"));
 const urlMultiplier = Number(params.get("multiplier")) || 100;
 
+const fromStage =
+    params.get("from") === "stage";
+
+const returnUrl =
+    params.get("return");
+
+const backButton =
+    document.querySelector(".back-button");
+
+if (
+    fromStage &&
+    returnUrl &&
+    backButton
+) {
+    backButton.href = returnUrl;
+    backButton.textContent = "← ステージへ戻る";
+}
+
 const detail =
     document.getElementById("characterDetail");
 
