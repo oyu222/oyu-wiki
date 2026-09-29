@@ -181,34 +181,36 @@
                     <tr>
 
                         <th>
-                            敵
-                        </th>
+    ボス
+</th>
 
-                        <th>
-                            倍率
-                        </th>
+<th>
+    敵
+</th>
 
-                        <th>
-                            出現数
-                        </th>
+<th>
+    倍率
+</th>
 
-                        <th>
-                            城連動
-                        </th>
+<th>
+    出現数
+</th>
 
-                        <th>
-                            初登場
-                        </th>
+<th>
+    城連動
+</th>
 
-                        <th>
-                            再登場
-                        </th>
+<th>
+    初登場
+</th>
+
+<th>
+    再登場
+</th>
 
 
 
-                        <th>
-                            BOSS
-                        </th>
+
 
                     </tr>
 
@@ -702,6 +704,17 @@ function renderEnemies() {
 
             return `
 
+
+            <td class="stage-boss-cell">
+
+    ${
+        line.boss
+            ? "☆"
+            : ""
+    }
+
+</td>
+
                 <tr>
 
                     <td class="stage-enemy-character">
@@ -776,20 +789,7 @@ function renderEnemies() {
         : `${line.respawn}F`
 }
                     </td>
-
-
-
-
-                    <td class="stage-boss-cell">
-
-                        ${
-                            line.boss
-                                ? "BOSS"
-                                : ""
-                        }
-
-                    </td>
-
+                    
                 </tr>
 
             `;
