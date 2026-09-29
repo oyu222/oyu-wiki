@@ -2446,47 +2446,47 @@ body.character-page {
        各列の幅
     --------------------------------- */
 
-    /* 敵 */
-    .stage-enemy-table th:nth-child(1),
-    .stage-enemy-table td:nth-child(1) {
-        width: 30%;
-    }
+    /* ボス */
+.stage-enemy-table th:nth-child(1),
+.stage-enemy-table td:nth-child(1) {
+    width: 8%;
+}
 
-    /* 倍率 */
-    .stage-enemy-table th:nth-child(2),
-    .stage-enemy-table td:nth-child(2) {
-        width: 12%;
-    }
+/* 敵 */
+.stage-enemy-table th:nth-child(2),
+.stage-enemy-table td:nth-child(2) {
+    width: 32%;
+}
 
-    /* 出現数 */
-    .stage-enemy-table th:nth-child(3),
-    .stage-enemy-table td:nth-child(3) {
-        width: 10%;
-    }
+/* 倍率 */
+.stage-enemy-table th:nth-child(3),
+.stage-enemy-table td:nth-child(3) {
+    width: 12%;
+}
 
-    /* 城連動 */
-    .stage-enemy-table th:nth-child(4),
-    .stage-enemy-table td:nth-child(4) {
-        width: 12%;
-    }
+/* 出現数 */
+.stage-enemy-table th:nth-child(4),
+.stage-enemy-table td:nth-child(4) {
+    width: 10%;
+}
 
-    /* 初登場 */
-    .stage-enemy-table th:nth-child(5),
-    .stage-enemy-table td:nth-child(5) {
-        width: 13%;
-    }
+/* 城連動 */
+.stage-enemy-table th:nth-child(5),
+.stage-enemy-table td:nth-child(5) {
+    width: 12%;
+}
 
-    /* 再登場 */
-    .stage-enemy-table th:nth-child(6),
-    .stage-enemy-table td:nth-child(6) {
-        width: 13%;
-    }
+/* 初登場 */
+.stage-enemy-table th:nth-child(6),
+.stage-enemy-table td:nth-child(6) {
+    width: 13%;
+}
 
-    /* BOSS */
-    .stage-enemy-table th:nth-child(7),
-    .stage-enemy-table td:nth-child(7) {
-        width: 10%;
-    }
+/* 再登場 */
+.stage-enemy-table th:nth-child(7),
+.stage-enemy-table td:nth-child(7) {
+    width: 13%;
+}
 
 
     /* ---------------------------------
@@ -2526,53 +2526,6 @@ body.character-page {
     }
 }
 
-/* =========================================
-   ステージ図鑑
-   スマホ：BOSS列を非表示
-========================================= */
 
-@media (max-width: 600px) {
-
-    /* BOSS列を完全に非表示 */
-    .stage-enemy-table th:nth-child(7),
-    .stage-enemy-table td:nth-child(7) {
-        display: none;
-    }
-
-
-    /* 6列で画面いっぱいに配置 */
-    .stage-enemy-table th:nth-child(1),
-    .stage-enemy-table td:nth-child(1) {
-        width: 34%;
-    }
-
-    .stage-enemy-table th:nth-child(2),
-    .stage-enemy-table td:nth-child(2) {
-        width: 12%;
-    }
-
-    .stage-enemy-table th:nth-child(3),
-    .stage-enemy-table td:nth-child(3) {
-        width: 10%;
-    }
-
-    .stage-enemy-table th:nth-child(4),
-    .stage-enemy-table td:nth-child(4) {
-        width: 12%;
-    }
-
-    .stage-enemy-table th:nth-child(5),
-    .stage-enemy-table td:nth-child(5) {
-        width: 16%;
-    }
-
-    .stage-enemy-table th:nth-child(6),
-    .stage-enemy-table td:nth-child(6) {
-        width: 16%;
-    }
-
-
-
-}
 }
 
