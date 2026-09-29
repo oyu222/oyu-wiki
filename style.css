@@ -1709,9 +1709,14 @@ body.character-page {
     }
 
 
-    .stage-info-row {
-        grid-template-columns: 105px 1fr;
-    }
+   .stage-info-row:nth-child(1),
+.stage-info-row:nth-child(2) {
+    grid-template-columns: 23% 27% 23% 27%;
+}
+
+.stage-info-row:nth-child(3) {
+    grid-template-columns: 23% 77%;
+}
 
 
     .stage-info-row .stage-info-label:nth-of-type(2),
@@ -1719,6 +1724,18 @@ body.character-page {
         border-top: 1px solid #ddd;
     }
 
+    .stage-info-label,
+.stage-info-value {
+    font-size: 13px;
+    padding: 5px 6px;
+    min-height: 34px;
+    box-sizing: border-box;
+}
+
+.stage-view-section h2 {
+    font-size: 16px;
+    padding: 8px 12px;
+}
 
     .stage-selector-menu {
         width: 100%;
