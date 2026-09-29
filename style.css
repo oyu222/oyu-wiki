@@ -2525,5 +2525,58 @@ body.character-page {
         flex: 0 0 32px;
     }
 }
+
+/* =========================================
+   ステージ図鑑
+   スマホ：BOSS列を非表示
+========================================= */
+
+@media (max-width: 600px) {
+
+    /* BOSS列を完全に非表示 */
+    .stage-enemy-table th:nth-child(7),
+    .stage-enemy-table td:nth-child(7) {
+        display: none;
+    }
+
+
+    /* 6列で画面いっぱいに配置 */
+    .stage-enemy-table th:nth-child(1),
+    .stage-enemy-table td:nth-child(1) {
+        width: 34%;
+    }
+
+    .stage-enemy-table th:nth-child(2),
+    .stage-enemy-table td:nth-child(2) {
+        width: 12%;
+    }
+
+    .stage-enemy-table th:nth-child(3),
+    .stage-enemy-table td:nth-child(3) {
+        width: 10%;
+    }
+
+    .stage-enemy-table th:nth-child(4),
+    .stage-enemy-table td:nth-child(4) {
+        width: 12%;
+    }
+
+    .stage-enemy-table th:nth-child(5),
+    .stage-enemy-table td:nth-child(5) {
+        width: 16%;
+    }
+
+    .stage-enemy-table th:nth-child(6),
+    .stage-enemy-table td:nth-child(6) {
+        width: 16%;
+    }
+
+
+    /* BOSSの敵欄だけ薄い青 */
+    .stage-enemy-table tbody tr:has(.stage-boss-cell)
+        td:first-child {
+        background: #eef6ff;
+    }
+}
 }
 
