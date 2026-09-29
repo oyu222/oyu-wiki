@@ -2407,5 +2407,123 @@ body.character-page {
     .menu {
         grid-template-columns: 1fr;
     }
+
+    /* =========================================
+   ステージ図鑑
+   スマホ：横スクロールなし
+========================================= */
+
+@media (max-width: 600px) {
+
+    .stage-view-main {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 6px;
+        overflow-x: hidden;
+    }
+
+
+    /* 敵出現表の外枠 */
+    .stage-enemy-table-wrapper {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+
+    /* 表そのもの */
+    .stage-enemy-table {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100%;
+        table-layout: fixed !important;
+        font-size: 11px;
+    }
+
+
+    /* ---------------------------------
+       各列の幅
+    --------------------------------- */
+
+    /* 敵 */
+    .stage-enemy-table th:nth-child(1),
+    .stage-enemy-table td:nth-child(1) {
+        width: 30%;
+    }
+
+    /* 倍率 */
+    .stage-enemy-table th:nth-child(2),
+    .stage-enemy-table td:nth-child(2) {
+        width: 12%;
+    }
+
+    /* 出現数 */
+    .stage-enemy-table th:nth-child(3),
+    .stage-enemy-table td:nth-child(3) {
+        width: 10%;
+    }
+
+    /* 城連動 */
+    .stage-enemy-table th:nth-child(4),
+    .stage-enemy-table td:nth-child(4) {
+        width: 12%;
+    }
+
+    /* 初登場 */
+    .stage-enemy-table th:nth-child(5),
+    .stage-enemy-table td:nth-child(5) {
+        width: 13%;
+    }
+
+    /* 再登場 */
+    .stage-enemy-table th:nth-child(6),
+    .stage-enemy-table td:nth-child(6) {
+        width: 13%;
+    }
+
+    /* BOSS */
+    .stage-enemy-table th:nth-child(7),
+    .stage-enemy-table td:nth-child(7) {
+        width: 10%;
+    }
+
+
+    /* ---------------------------------
+       セル
+    --------------------------------- */
+
+    .stage-enemy-table th,
+    .stage-enemy-table td {
+        box-sizing: border-box;
+        padding: 5px 2px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    /* ---------------------------------
+       敵キャラ欄
+    --------------------------------- */
+
+    .stage-enemy-character {
+        width: auto !important;
+        min-width: 0 !important;
+    }
+
+    .stage-enemy-link {
+        width: 100%;
+        gap: 3px;
+        white-space: normal !important;
+        overflow: hidden;
+    }
+
+    .stage-enemy-link img {
+        width: 32px;
+        height: 32px;
+        flex: 0 0 32px;
+    }
+}
 }
 
