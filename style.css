@@ -2572,16 +2572,7 @@ body.character-page {
     }
 
 
-    /* BOSSの敵欄だけ薄い青 */
-    .stage-enemy-table tbody tr:has(.stage-boss-cell)
-        td:first-child {
-        background: #eef6ff;
-    }
-}
 
-/* BOSSの敵欄を薄い青にする（PC・スマホ共通） */
-.stage-enemy-table tbody tr:has(.stage-boss-cell) td:first-child {
-    background: #eef6ff;
 }
 }
 
