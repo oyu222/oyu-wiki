@@ -2545,4 +2545,154 @@ body.character-page {
 
 
 }
+/* =========================================
+   全ステージ一覧
+========================================= */
+
+.stage-selector-all {
+    font-weight: normal;
+    background: #f8f8f8;
+}
+
+.stage-all-stages-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.stage-all-stage-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 14px;
+
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+
+    color: #2478c9;
+    text-decoration: none;
+}
+
+.stage-all-stage-item:last-child {
+    border-bottom: 0;
+}
+
+.stage-all-stage-item:hover {
+    background: #f0f6ff;
+}
+
+.stage-all-stage-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 30px;
+    height: 30px;
+
+    border-radius: 6px;
+    background: #f2f2f2;
+
+    color: #555;
+    font-size: 13px;
+}
+
+.stage-all-stage-name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.stage-all-stage-arrow {
+    color: #777;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* =========================================
+   全ステージ縦並び表示
+========================================= */
+
+.stage-all-stages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.stage-all-stage-block {
+    width: 100%;
+    min-width: 0;
+    padding-bottom: 18px;
+    border-bottom: 2px solid #ddd;
+}
+
+.stage-all-stage-block:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.stage-all-stage-block .stage-view-section {
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 12px;
+}
+
+.stage-all-stage-block .stage-view-section h2 {
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.stage-all-stage-block .stage-info-table {
+    width: 100%;
+    min-width: 0;
+}
+
+.stage-all-stage-block .stage-info-row {
+    min-width: 0;
+}
+
+.stage-all-stage-block .stage-info-label,
+.stage-all-stage-block .stage-info-value {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.stage-all-stage-block .stage-enemy-table-wrapper {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* スマホ向け */
+@media (max-width: 600px) {
+    .stage-all-stages-list {
+        gap: 14px;
+    }
+
+    .stage-all-stage-block {
+        padding-bottom: 12px;
+    }
+
+    .stage-all-stage-block .stage-view-section {
+        margin-bottom: 10px;
+    }
+
+    .stage-all-stage-block .stage-view-section h2 {
+        font-size: 15px;
+        padding: 8px;
+    }
+
+    .stage-all-stage-block .stage-info-label,
+    .stage-all-stage-block .stage-info-value {
+        font-size: 12px;
+        padding: 5px 4px;
+    }
+
+    .stage-all-stage-block .stage-enemy-table {
+        font-size: 10px;
+    }
+
+    .stage-all-stage-block .stage-enemy-table th,
+    .stage-all-stage-block .stage-enemy-table td {
+        padding: 4px 2px;
+    }
+}
 
